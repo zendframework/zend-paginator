@@ -65,7 +65,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
            $this->markTestSkipped('Pdo_Sqlite extension is not loaded');
         }
 
-        $this->_adapter = new \Zend\DB\Adapter\PDO\SQLite(array(
+        $this->_adapter = new \Zend\Db\Adapter\Pdo\Sqlite(array(
             'dbname' => __DIR__ . '/_files/test.sqlite'
         ));
 
@@ -931,6 +931,27 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException("Zend\Paginator\Exception");
 
         $p = new Paginator\Paginator(array());
+    }
+
+    /**
+     * @group ZF-9396
+     */
+    public function testArrayAccessInClassSerializableLimitIterator()
+    {
+        $iterator  = new \ArrayIterator(array('zf9396', 'foo', null));
+        $paginator = Paginator\Paginator::factory($iterator);
+
+        $this->assertEquals('zf9396', $paginator->getItem(1));
+
+        $items = $paginator->getAdapter()
+                           ->getItems(0, 10);
+
+        $this->assertEquals('foo', $items[1]);
+        $this->assertEquals(0, $items->key());
+        $this->assertFalse(isset($items[2]));
+        $this->assertTrue(isset($items[1]));
+        $this->assertFalse(isset($items[3]));
+        $this->assertEquals(0, $items->key());
     }
 }
 
