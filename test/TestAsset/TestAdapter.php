@@ -14,35 +14,33 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
 /**
- * Interface for pagination adapters.
- *
- * @uses       Countable
+ * @namespace
+ */
+namespace ZendTest\Paginator\TestAsset;
+
+/**
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Zend_Paginator_Adapter_Interface extends Countable
+class TestAdapter extends \ArrayObject implements \Zend\Paginator\Adapter
 {
-    /**
-     * Returns the total number of rows in the collection.
-     *
-     * @return integer
-     */
-    //public function count();
+    public function count()
+    {
+        return 10;
+    }
 
-    /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
-     */
-    public function getItems($offset, $itemCountPerPage);
+    public function getItems($pageNumber, $itemCountPerPage)
+    {
+        return new \ArrayObject(range(1, 10));
+    }
 }

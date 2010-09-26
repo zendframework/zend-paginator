@@ -14,29 +14,40 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace Zend\Paginator;
 
 /**
+ * Interface for pagination adapters.
+ *
+ * @uses       Countable
  * @category   Zend
  * @package    Zend_Paginator
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zf4207 extends ArrayObject implements Zend_Paginator_Adapter_Interface
+interface Adapter extends \Countable
 {
-    public function count()
-    {
-        return 10;
-    }
+    /**
+     * Returns the total number of rows in the collection.
+     *
+     * @return integer
+     */
+    //public function count();
 
-    public function getItems($pageNumber, $itemCountPerPage)
-    {
-        return new ArrayObject(range(1, 10));
-    }
+    /**
+     * Returns an collection of items for a page.
+     *
+     * @param  integer $offset Page offset
+     * @param  integer $itemCountPerPage Number of items per page
+     * @return array
+     */
+    public function getItems($offset, $itemCountPerPage);
 }
