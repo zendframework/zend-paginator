@@ -14,29 +14,24 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
 /**
  * @namespace
  */
-namespace Zend\Paginator;
+namespace Zend\Paginator\Adapter;
 
 /**
+ * @uses       Zend\Paginator\Exception
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface ScrollingStyle
-{
-    /**
-     * Returns an array of "local" pages given a page number and range.
-     *
-     * @param  \Zend\Paginator\Paginator $paginator
-     * @param  integer $pageRange (Optional) Page range
-     * @return array
-     */
-    public function getPages(\Zend\Paginator\Paginator $paginator, $pageRange = null);
-}
+interface Exception extends \Zend\Paginator\Exception
+{}

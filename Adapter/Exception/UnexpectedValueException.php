@@ -13,30 +13,25 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Paginator
+ * @package    Zend\Paginator\Adapter
+ * @subpackage Exception
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
 /**
  * @namespace
  */
-namespace Zend\Paginator;
+namespace Zend\Paginator\Adapter\Exception;
 
 /**
+ * @uses       Zend\Paginator\Adapter\Exception
  * @category   Zend
- * @package    Zend_Paginator
+ * @package    Zend\Paginator\Adapter
+ * @subpackage Exception
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface ScrollingStyle
-{
-    /**
-     * Returns an array of "local" pages given a page number and range.
-     *
-     * @param  \Zend\Paginator\Paginator $paginator
-     * @param  integer $pageRange (Optional) Page range
-     * @return array
-     */
-    public function getPages(\Zend\Paginator\Paginator $paginator, $pageRange = null);
-}
+class UnexpectedValueException extends \UnexpectedValueException implements \Zend\Paginator\Adapter\Exception
+{}
