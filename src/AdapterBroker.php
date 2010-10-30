@@ -14,43 +14,41 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace ZendTest\Paginator\Adapter;
-use Zend\Paginator\Adapter;
+namespace Zend\Paginator;
+
+use Zend\Loader\PluginBroker;
 
 /**
+ * Broker for pagination adapter instances
+ *
  * @category   Zend
  * @package    Zend_Paginator
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Paginator
  */
-class DbTableSelectTest extends \ZendTest\Paginator\Adapter\DbSelectTest
+class AdapterBroker extends PluginBroker
 {
     /**
-     * @group ZF-3775
+     * @var string Default plugin loading strategy
      */
-    public function testSelectDoesReturnZendDbTableRowset()
-    {
-        $query   = $this->_table->select();
-        $adapter = new Adapter\DbTableSelect($query);
-        $items   = $adapter->getItems(0, 10);
+    protected $defaultClassLoader = 'Zend\Paginator\AdapterLoader';
 
-        $this->assertType('Zend\Db\Table\Rowset', $items);
-    }
-
-    public function testToJsonWithRowset()
+    /**
+     * Determine if we have a valid adapter
+     * 
+     * @param  mixed $plugin 
+     * @return true
+     * @throws Exception
+     */
+    protected function validatePlugin($plugin)
     {
-        $query   = $this->_table->select();
-        $paginator = new \Zend\Paginator\Paginator(new Adapter\DbTableSelect($query));
-        $this->assertGreaterThan(2, strlen($paginator->toJson()));
+        if (!$plugin instanceof Adapter) {
+            throw new Exception('Pagination adapters must implement Zend\Paginator\Adapter');
+        }
+        return true;
     }
 }
