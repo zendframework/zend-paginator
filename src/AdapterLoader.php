@@ -18,17 +18,28 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Paginator;
 
+use Zend\Loader\PluginClassLoader;
+
 /**
- * @uses       Zend\Exception
+ * Plugin Class Loader implementation for pagination adapters.
+ *
  * @category   Zend
  * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
-{}
+class AdapterLoader extends PluginClassLoader
+{
+    /**
+     * @var array Pre-aliased adapters 
+     */
+    protected $plugins = array(
+        'array'           => 'Zend\Paginator\Adapter\ArrayAdapter',
+        'db_select'       => 'Zend\Paginator\Adapter\DbSelect',
+        'db_table_select' => 'Zend\Paginator\Adapter\DbTableSelect',
+        'iterator'        => 'Zend\Paginator\Adapter\Iterator',
+        'null'            => 'Zend\Paginator\Adapter\Null',
+    );
+}

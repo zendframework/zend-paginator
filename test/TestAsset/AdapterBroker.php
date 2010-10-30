@@ -14,21 +14,26 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
 /**
  * @namespace
  */
-namespace Zend\Paginator;
+namespace ZendTest\Paginator\TestAsset;
+
+use Zend\Paginator\AdapterBroker as BaseAdapterBroker;
 
 /**
- * @uses       Zend\Exception
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
-{}
+class AdapterBroker extends BaseAdapterBroker
+{
+}
