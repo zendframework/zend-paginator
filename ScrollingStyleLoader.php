@@ -18,17 +18,27 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Paginator;
 
+use Zend\Loader\PluginClassLoader;
+
 /**
- * @uses       Zend\Exception
+ * Plugin Class Loader implementation for scrolling style adapters.
+ *
  * @category   Zend
  * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
-{}
+class ScrollingStyleLoader extends PluginClassLoader
+{
+    /**
+     * @var array Pre-aliased adapters 
+     */
+    protected $plugins = array(
+        'all'     => 'Zend\Paginator\ScrollingStyle\All',
+        'elastic' => 'Zend\Paginator\ScrollingStyle\Elastic',
+        'jumping' => 'Zend\Paginator\ScrollingStyle\Jumping',
+        'sliding' => 'Zend\Paginator\ScrollingStyle\Sliding',
+    );
+}

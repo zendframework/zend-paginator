@@ -18,17 +18,37 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Paginator;
 
+use Zend\Loader\PluginBroker;
+
 /**
- * @uses       Zend\Exception
+ * Broker for scrolling-style adapter instances
+ *
  * @category   Zend
  * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
-{}
+class ScrollingStyleBroker extends PluginBroker
+{
+    /**
+     * @var string Default plugin loading strategy
+     */
+    protected $defaultClassLoader = 'Zend\Paginator\ScrollingStyleLoader';
+
+    /**
+     * Determine if we have a valid adapter
+     * 
+     * @param  mixed $plugin 
+     * @return true
+     * @throws Exception
+     */
+    protected function validatePlugin($plugin)
+    {
+        if (!$plugin instanceof ScrollingStyle) {
+            throw new Exception('ScrollingStyle adapters must implement Zend\Paginator\ScrollingStyle');
+        }
+        return true;
+    }
+}
