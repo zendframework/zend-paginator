@@ -13,7 +13,8 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -21,26 +22,17 @@
 /**
  * @namespace
  */
-namespace Zend\Paginator;
-      use \Countable;
+namespace ZendTest\Paginator\TestAsset;
+
+use Zend\Paginator\ScrollingStyleBroker as BaseScrollingStyleBroker;
 
 /**
- * Interface for pagination adapters.
- *
- * @uses       Countable
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Adapter extends Countable
+class ScrollingStyleBroker extends BaseScrollingStyleBroker
 {
-    /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
-     */
-    public function getItems($offset, $itemCountPerPage);
 }

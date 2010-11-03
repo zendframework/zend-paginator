@@ -13,34 +13,33 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Paginator;
-      use \Countable;
+
+use Zend\Loader\PluginClassLoader;
 
 /**
- * Interface for pagination adapters.
+ * Plugin Class Loader implementation for pagination adapters.
  *
- * @uses       Countable
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Adapter extends Countable
+class AdapterLoader extends PluginClassLoader
 {
     /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
+     * @var array Pre-aliased adapters 
      */
-    public function getItems($offset, $itemCountPerPage);
+    protected $plugins = array(
+        'array'           => 'Zend\Paginator\Adapter\ArrayAdapter',
+        'db_select'       => 'Zend\Paginator\Adapter\DbSelect',
+        'db_table_select' => 'Zend\Paginator\Adapter\DbTableSelect',
+        'iterator'        => 'Zend\Paginator\Adapter\Iterator',
+        'null'            => 'Zend\Paginator\Adapter\Null',
+    );
 }

@@ -13,34 +13,32 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Paginator;
-      use \Countable;
+
+use Zend\Loader\PluginClassLoader;
 
 /**
- * Interface for pagination adapters.
+ * Plugin Class Loader implementation for scrolling style adapters.
  *
- * @uses       Countable
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Adapter extends Countable
+class ScrollingStyleLoader extends PluginClassLoader
 {
     /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
+     * @var array Pre-aliased adapters 
      */
-    public function getItems($offset, $itemCountPerPage);
+    protected $plugins = array(
+        'all'     => 'Zend\Paginator\ScrollingStyle\All',
+        'elastic' => 'Zend\Paginator\ScrollingStyle\Elastic',
+        'jumping' => 'Zend\Paginator\ScrollingStyle\Jumping',
+        'sliding' => 'Zend\Paginator\ScrollingStyle\Sliding',
+    );
 }
