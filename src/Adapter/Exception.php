@@ -13,34 +13,25 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
 /**
  * @namespace
  */
-namespace Zend\Paginator;
-      use \Countable;
+namespace Zend\Paginator\Adapter;
 
 /**
- * Interface for pagination adapters.
- *
- * @uses       Countable
+ * @uses       Zend\Paginator\Exception
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
+ * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Adapter extends Countable
-{
-    /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
-     */
-    public function getItems($offset, $itemCountPerPage);
-}
+interface Exception extends \Zend\Paginator\Exception
+{}

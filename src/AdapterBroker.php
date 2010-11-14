@@ -13,34 +13,42 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
 namespace Zend\Paginator;
-      use \Countable;
+
+use Zend\Loader\PluginBroker;
 
 /**
- * Interface for pagination adapters.
+ * Broker for pagination adapter instances
  *
- * @uses       Countable
  * @category   Zend
- * @package    Paginator
+ * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Adapter extends Countable
+class AdapterBroker extends PluginBroker
 {
     /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
+     * @var string Default plugin loading strategy
      */
-    public function getItems($offset, $itemCountPerPage);
+    protected $defaultClassLoader = 'Zend\Paginator\AdapterLoader';
+
+    /**
+     * Determine if we have a valid adapter
+     * 
+     * @param  mixed $plugin 
+     * @return true
+     * @throws Exception
+     */
+    protected function validatePlugin($plugin)
+    {
+        if (!$plugin instanceof Adapter) {
+            throw new Exception('Pagination adapters must implement Zend\Paginator\Adapter');
+        }
+        return true;
+    }
 }
