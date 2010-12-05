@@ -22,8 +22,9 @@
 /**
  * @namespace
  */
-namespace ZendTest\Paginator\Adapter;
-use Zend\Paginator\Adapter;
+namespace ZendTest\Paginator\TestAsset;
+
+use Zend\Paginator\ScrollingStyleBroker as BaseScrollingStyleBroker;
 
 /**
  * @category   Zend
@@ -31,26 +32,7 @@ use Zend\Paginator\Adapter;
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Paginator
  */
-class DbTableSelectTest extends \ZendTest\Paginator\Adapter\DbSelectTest
+class ScrollingStyleBroker extends BaseScrollingStyleBroker
 {
-    /**
-     * @group ZF-3775
-     */
-    public function testSelectDoesReturnZendDbTableRowset()
-    {
-        $query   = $this->_table->select();
-        $adapter = new Adapter\DbTableSelect($query);
-        $items   = $adapter->getItems(0, 10);
-
-        $this->assertType('Zend\Db\Table\Rowset', $items);
-    }
-
-    public function testToJsonWithRowset()
-    {
-        $query   = $this->_table->select();
-        $paginator = new \Zend\Paginator\Paginator(new Adapter\DbTableSelect($query));
-        $this->assertGreaterThan(2, strlen($paginator->toJson()));
-    }
 }
