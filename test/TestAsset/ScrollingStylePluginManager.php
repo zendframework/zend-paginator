@@ -14,29 +14,22 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Paginator;
+namespace ZendTest\Paginator\TestAsset;
+
+use Zend\Paginator\ScrollingStylePluginManager as BaseScrollingStylePluginManager;
 
 /**
  * @category   Zend
  * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface ScrollingStyle
+class ScrollingStylePluginManager extends BaseScrollingStylePluginManager
 {
-    /**
-     * Returns an array of "local" pages given a page number and range.
-     *
-     * @param  \Zend\Paginator\Paginator $paginator
-     * @param  integer $pageRange (Optional) Page range
-     * @return array
-     */
-    public function getPages(\Zend\Paginator\Paginator $paginator, $pageRange = null);
 }
