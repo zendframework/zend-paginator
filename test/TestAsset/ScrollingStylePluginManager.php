@@ -8,14 +8,15 @@
  * @package   Zend_Paginator
  */
 
-namespace Zend\Paginator\Exception;
+namespace ZendTest\Paginator\TestAsset;
+
+use Zend\Paginator\ScrollingStylePluginManager as BaseScrollingStylePluginManager;
 
 /**
  * @category   Zend
- * @package    Zend\Paginator
- * @subpackage Exception
+ * @package    Zend_Paginator
+ * @subpackage UnitTests
  */
-class InvalidArgumentException
-    extends \InvalidArgumentException
-    implements ExceptionInterface
-{}
+class ScrollingStylePluginManager extends BaseScrollingStylePluginManager
+{
+}
