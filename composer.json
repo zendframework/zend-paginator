@@ -9,7 +9,7 @@
     "homepage": "https://github.com/zendframework/zend-paginator",
     "autoload": {
         "psr-4": {
-            "Zend\\Paginator": "src/"
+            "Zend\\Paginator\\": "src/"
         }
     },
     "require": {
