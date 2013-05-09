@@ -10,13 +10,18 @@
 
 namespace ZendTest\Paginator\TestAsset;
 
-use Zend\Paginator\ScrollingStylePluginManager as BaseScrollingStylePluginManager;
+use Zend\Paginator;
+use Zend\Paginator\Adapter;
 
 /**
  * @category   Zend
  * @package    Zend_Paginator
  * @subpackage UnitTests
  */
-class ScrollingStylePluginManager extends BaseScrollingStylePluginManager
+class TestArrayAggregate implements Paginator\AdapterAggregateInterface
 {
+    public function getPaginatorAdapter()
+    {
+        return new Adapter\ArrayAdapter(array(1, 2, 3, 4));
+    }
 }
