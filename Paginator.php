@@ -140,7 +140,7 @@ class Paginator implements Countable, IteratorAggregate
     /**
      * Pages
      *
-     * @var \stdClass
+     * @var array
      */
     protected $pages = null;
 
@@ -665,7 +665,7 @@ class Paginator implements Countable, IteratorAggregate
      * Returns the page collection.
      *
      * @param  string $scrollingStyle Scrolling style
-     * @return \stdClass
+     * @return array
      */
     public function getPages($scrollingStyle = null)
     {
