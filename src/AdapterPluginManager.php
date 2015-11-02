@@ -10,6 +10,7 @@
 namespace Zend\Paginator;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Plugin manager implementation for paginator adapters.
@@ -29,19 +30,12 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $aliases = [
-        'null'                        => 'nullfill',
-        'Zend\Paginator\Adapter\Null' => 'nullfill',
-    ];
-
-    /**
-     * Default set of adapters
-     *
-     * @var array
-     */
-    protected $invokableClasses = [
-        'array'         => 'Zend\Paginator\Adapter\ArrayAdapter',
-        'iterator'      => 'Zend\Paginator\Adapter\Iterator',
-        'nullfill'      => 'Zend\Paginator\Adapter\NullFill',
+        'dbselect'       => Adapter\DbSelect::class,
+        'dbtablegateway' => Adapter\DbTableGateway::class,
+        'null'           => Adapter\NullFill::class,
+        'nullfill'       => Adapter\NullFill::class,
+        'array'          => Adapter\ArrayAdapter::class,
+        'iterator'       => Adapter\Iterator::class
     ];
 
     /**
@@ -50,50 +44,12 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
-        'dbselect'         => 'Zend\Paginator\Adapter\Service\DbSelectFactory',
-        'dbtablegateway'   => 'Zend\Paginator\Adapter\Service\DbTableGatewayFactory',
-        'callback'         => 'Zend\Paginator\Adapter\Service\CallbackFactory',
+        Adapter\DbSelect::class       => Adapter\Service\DbSelectFactory::class,
+        Adapter\DbTableGateway::class => Adapter\Service\DbTableGatewayFactory::class,
+        Adapter\NullFill::class       => InvokableFactory::class,
+        Adapter\Iterator::class       => Adapter\Service\IteratorFactory::class,
+        Adapter\ArrayAdapter::class   => InvokableFactory::class
     ];
 
-    /**
-     * Attempt to create an instance via a factory
-     *
-     * @param  string $canonicalName
-     * @param  string $requestedName
-     * @return mixed
-     * @throws \Zend\ServiceManager\Exception\ServiceNotCreatedException If factory is not callable
-     */
-    protected function createFromFactory($canonicalName, $requestedName)
-    {
-        $factory = $this->factories[$canonicalName];
-        if (is_string($factory) && class_exists($factory, true)) {
-            $factory = new $factory($this->creationOptions);
-            $this->factories[$canonicalName] = $factory;
-        }
-        return parent::createFromFactory($canonicalName, $requestedName);
-    }
-
-    /**
-     * Validate the plugin
-     *
-     * Checks that the adapter loaded is an instance
-     * of Adapter\AdapterInterface.
-     *
-     * @param  mixed $plugin
-     * @return void
-     * @throws Exception\RuntimeException if invalid
-     */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof Adapter\AdapterInterface) {
-            // we're okay
-            return;
-        }
-
-        throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\Adapter\AdapterInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
-    }
+    protected $instanceOf = Adapter\AdapterInterface::class;
 }

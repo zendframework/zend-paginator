@@ -34,6 +34,7 @@ class Iterator implements AdapterInterface
      * @throws \Zend\Paginator\Adapter\Exception\InvalidArgumentException
      */
     public function __construct(\Iterator $iterator)
+    //public function __construct( $iterator)
     {
         if (!$iterator instanceof \Countable) {
             throw new Exception\InvalidArgumentException('Iterator must implement Countable');
