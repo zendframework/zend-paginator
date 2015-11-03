@@ -30,6 +30,7 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Paginator<extended>
  */
 class PaginatorTest extends \PHPUnit_Framework_TestCase
 {

@@ -17,6 +17,7 @@ use Zend\Mvc\Service\ServiceManagerConfig;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\AdapterPluginManager<extended>
  */
 class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 {

@@ -14,6 +14,7 @@ use Zend\Stdlib\CallbackHandler;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Adapter\Callback<extended>
  */
 class CallbackTest extends \PHPUnit_Framework_TestCase
 {
