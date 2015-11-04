@@ -18,7 +18,7 @@ use Zend\Paginator;
 class NullFillTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Zend\Paginator\Adapter\Array
+     * @var \Zend\Paginator\Adapter\NullFill
      */
     private $adapter;
 
