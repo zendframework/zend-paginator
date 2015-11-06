@@ -29,8 +29,8 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $aliases = [
-        'null'                        => 'nullfill',
-        'Zend\Paginator\Adapter\Null' => 'nullfill',
+        'null'                     => 'nullfill',
+        'zendpaginatoradapternull' => 'nullfill',
     ];
 
     /**
