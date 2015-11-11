@@ -30,6 +30,7 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $aliases = [
+        'callback'       => Adapter\Callback::class,
         'dbselect'       => Adapter\DbSelect::class,
         'dbtablegateway' => Adapter\DbTableGateway::class,
         'null'           => Adapter\NullFill::class,
@@ -44,6 +45,7 @@ class AdapterPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
+        Adapter\Callback::class       => Adapter\Service\CallbackFactory::class,
         Adapter\DbSelect::class       => Adapter\Service\DbSelectFactory::class,
         Adapter\DbTableGateway::class => Adapter\Service\DbTableGatewayFactory::class,
         Adapter\NullFill::class       => InvokableFactory::class,
