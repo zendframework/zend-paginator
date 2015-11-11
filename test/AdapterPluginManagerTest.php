@@ -9,7 +9,6 @@
 
 namespace ZendTest\Paginator;
 
-use Zend\Stdlib\CallbackHandler;
 use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Paginator\AdapterPluginManager;
 use Zend\ServiceManager\ServiceManager;
@@ -29,7 +28,9 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->adapaterPluginManager = new AdapterPluginManager();
+        $this->adapaterPluginManager = new AdapterPluginManager(
+            $this->getMockBuilder('Interop\Container\ContainerInterface')->getMock()
+        );
         $this->mockSelect = $this->getMock('Zend\Db\Sql\Select');
 
         $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
@@ -51,11 +52,11 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $plugin = $this->adapaterPluginManager->get('array', [1, 2, 3]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\ArrayAdapter', $plugin);
-        $plugin = $this->adapaterPluginManager->get('iterator', new \ArrayIterator(range(1, 101)));
+        $plugin = $this->adapaterPluginManager->get('iterator', [ new \ArrayIterator(range(1, 101)) ]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\Iterator', $plugin);
         $plugin = $this->adapaterPluginManager->get('dbselect', [$this->mockSelect, $this->mockAdapter]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbSelect', $plugin);
-        $plugin = $this->adapaterPluginManager->get('null', 101);
+        $plugin = $this->adapaterPluginManager->get('null', [ 101 ]);
         $this->assertInstanceOf('Zend\Paginator\Adapter\NullFill', $plugin);
 
         //test dbtablegateway
@@ -84,28 +85,20 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
             [$mockTableGateway, $where, $order, $group, $having]
         );
         $this->assertInstanceOf('Zend\Paginator\Adapter\DbTableGateway', $plugin);
-
-        //test callback
-        $itemsCallback = new CallbackHandler(function () {
-            return [];
-        });
-        $countCallback = new CallbackHandler(function () {
-            return 0;
-        });
-        $plugin = $this->adapaterPluginManager->get('callback', [$itemsCallback, $countCallback]);
-        $this->assertInstanceOf('Zend\Paginator\Adapter\Callback', $plugin);
     }
 
     public function testCanRetrievePluginManagerWithServiceManager()
     {
-        $sm = $this->serviceManager = new ServiceManager(
-            new ServiceManagerConfig([
-                'factories' => [
-                    'PaginatorPluginManager'  => 'Zend\Mvc\Service\PaginatorPluginManagerFactory',
-                ],
-            ])
-        );
-        $sm->setService('Config', []);
+        $config = new ServiceManagerConfig([
+            'factories' => [
+                'PaginatorPluginManager'  => 'Zend\Mvc\Service\PaginatorPluginManagerFactory',
+            ],
+            'services' => [
+                'Config' => []
+            ]
+        ]);
+        $sm = $this->serviceManager = new ServiceManager($config->toArray());
+        //$sm->setService('Config', []);
         $adapterPluginManager = $sm->get('PaginatorPluginManager');
         $this->assertInstanceOf('Zend\Paginator\AdapterPluginManager', $adapterPluginManager);
     }

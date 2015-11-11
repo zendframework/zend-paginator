@@ -22,6 +22,7 @@ use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View;
+use Zend\ServiceManager\ServiceManager;
 
 class Paginator implements Countable, IteratorAggregate
 {
@@ -240,7 +241,7 @@ class Paginator implements Countable, IteratorAggregate
                     $scrollingAdapters
                 ));
             }
-            $scrollingAdapters = new $scrollingAdapters();
+            $scrollingAdapters = new $scrollingAdapters(new ServiceManager);
         }
         if (!$scrollingAdapters instanceof ScrollingStylePluginManager) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -260,7 +261,7 @@ class Paginator implements Countable, IteratorAggregate
     public static function getScrollingStylePluginManager()
     {
         if (static::$scrollingStyles === null) {
-            static::$scrollingStyles = new ScrollingStylePluginManager();
+            static::$scrollingStyles = new ScrollingStylePluginManager(new ServiceManager);
         }
 
         return static::$scrollingStyles;
