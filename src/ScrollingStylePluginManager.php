@@ -10,6 +10,7 @@
 namespace Zend\Paginator;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Plugin manager implementation for scrolling style adapters
@@ -25,33 +26,28 @@ class ScrollingStylePluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = [
-        'all'     => 'Zend\Paginator\ScrollingStyle\All',
-        'elastic' => 'Zend\Paginator\ScrollingStyle\Elastic',
-        'jumping' => 'Zend\Paginator\ScrollingStyle\Jumping',
-        'sliding' => 'Zend\Paginator\ScrollingStyle\Sliding',
+    protected $aliases = [
+        'all'     => ScrollingStyle\All::class,
+        'All'     => ScrollingStyle\All::class,
+        'elastic' => ScrollingStyle\Elastic::class,
+        'Elastic' => ScrollingStyle\Elastic::class,
+        'jumping' => ScrollingStyle\Jumping::class,
+        'Jumping' => ScrollingStyle\Jumping::class,
+        'sliding' => ScrollingStyle\Sliding::class,
+        'Sliding' => ScrollingStyle\Sliding::class
     ];
 
     /**
-     * Validate the plugin
+     * Default set of adapter factories
      *
-     * Checks that the adapter loaded is an instance of ScrollingStyle\ScrollingStyleInterface.
-     *
-     * @param  mixed $plugin
-     * @return void
-     * @throws Exception\InvalidArgumentException if invalid
+     * @var array
      */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof ScrollingStyle\ScrollingStyleInterface) {
-            // we're okay
-            return;
-        }
+    protected $factories = [
+        ScrollingStyle\All::class     => InvokableFactory::class,
+        ScrollingStyle\Elastic::class => InvokableFactory::class,
+        ScrollingStyle\Jumping::class => InvokableFactory::class,
+        ScrollingStyle\Sliding::class => InvokableFactory::class
+    ];
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\ScrollingStyle\ScrollingStyleInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
-    }
+    protected $instanceOf = ScrollingStyle\ScrollingStyleInterface::class;
 }
