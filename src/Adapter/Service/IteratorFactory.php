@@ -9,24 +9,13 @@
 
 namespace Zend\Paginator\Adapter\Service;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
-class DbTableGatewayFactory implements FactoryInterface
+class IteratorFactory implements FactoryInterface
 {
-    /**
-     * {@inheritDoc}
-     *
-     * @return DbTableGateway
-     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new $requestedName(
-            $options[0],
-            isset($options[1]) ? $options[1] : null,
-            isset($options[2]) ? $options[2] : null,
-            isset($options[3]) ? $options[3] : null,
-            isset($options[4]) ? $options[4] : null
-        );
+        return (count($options) === 0) ? new $requestedName : new $requestedName($options[0]);
     }
 }

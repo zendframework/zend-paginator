@@ -9,41 +9,22 @@
 
 namespace Zend\Paginator\Adapter\Service;
 
-use Zend\Paginator\Adapter\DbSelect;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 
-class DbSelectFactory implements
-    FactoryInterface,
-    MutableCreationOptionsInterface
+class DbSelectFactory implements FactoryInterface
 {
-    /**
-     * Adapter options
-     *
-     * @var array
-     */
-    protected $creationOptions;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCreationOptions(array $creationOptions)
-    {
-        $this->creationOptions = $creationOptions;
-    }
-
     /**
      * {@inheritDoc}
      *
      * @return \Zend\Paginator\Adapter\DbSelect
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new DbSelect(
-            $this->creationOptions[0],
-            $this->creationOptions[1],
-            isset($this->creationOptions[2]) ? $this->creationOptions[2] : null
+        return new $requestedName(
+            $options[0],
+            $options[1],
+            isset($options[2]) ? $options[2] : null
         );
     }
 }
