@@ -17,7 +17,8 @@ class Paginator extends SimplePaginator
 {
     use JsonSerializeTrait,
         RenderTrait,
-        FilterTrait;
+        FilterTrait,
+        CachedTrait;
 
     /**
      * The cache tag prefix used to namespace Paginator results in the cache
