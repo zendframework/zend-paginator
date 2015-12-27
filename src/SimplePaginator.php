@@ -14,7 +14,6 @@ use Countable;
 use Traversable;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;
-use Zend\Stdlib\ArrayUtils;
 
 class SimplePaginator implements PaginatorInterface
 {

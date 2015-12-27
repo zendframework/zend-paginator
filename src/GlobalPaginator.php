@@ -8,8 +8,11 @@
  */
 namespace Zend\Paginator;
 
+use Traversable;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ArrayUtils;
+use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;
 
 class GlobalPaginator extends SimplePaginator implements GlobalSetupInterface
 {
