@@ -52,45 +52,6 @@ trait CachedTrait
     }
 
     /**
-     * Returns the items for a given page.
-     *
-     * @param int $pageNumber
-     * @return mixed
-     */
-    public function getItemsByPage($pageNumber)
-    {
-        $pageNumber = $this->normalizePageNumber($pageNumber);
-
-        if ($this->cacheEnabled()) {
-            $data = static::$cache->getItem($this->_getCacheId($pageNumber));
-            if ($data) {
-                return $data;
-            }
-        }
-
-        $offset = ($pageNumber - 1) * $this->getItemCountPerPage();
-
-        $items = $this->adapter->getItems($offset, $this->getItemCountPerPage());
-
-        $filter = $this->getFilter();
-
-        if ($filter !== null) {
-            $items = $filter->filter($items);
-        }
-
-        if (!$items instanceof Traversable) {
-            $items = new ArrayIterator($items);
-        }
-
-        if ($this->cacheEnabled()) {
-            $cacheId = $this->_getCacheId($pageNumber);
-            static::$cache->setItem($cacheId, $items);
-        }
-
-        return $items;
-    }
-
-    /**
      * Returns the page item cache.
      *
      * @return array
