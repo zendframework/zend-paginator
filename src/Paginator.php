@@ -15,9 +15,7 @@ use IteratorAggregate;
 use Traversable;
 use Zend\Cache\Storage\IteratorInterface as CacheIterator;
 use Zend\Cache\Storage\StorageInterface as CacheStorage;
-use Zend\Db\ResultSet\AbstractResultSet;
 use Zend\Filter\FilterInterface;
-use Zend\Json\Json;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;
 use Zend\Stdlib\ArrayUtils;
@@ -26,6 +24,8 @@ use Zend\ServiceManager\ServiceManager;
 
 class Paginator implements Countable, IteratorAggregate
 {
+    use JsonSerializeTrait;
+
     /**
      * The cache tag prefix used to namespace Paginator results in the cache
      *
@@ -803,21 +803,6 @@ class Paginator implements Countable, IteratorAggregate
         $view = $this->getView();
 
         return $view->paginationControl($this);
-    }
-
-    /**
-     * Returns the items of the current page as JSON.
-     *
-     * @return string
-     */
-    public function toJson()
-    {
-        $currentItems = $this->getCurrentItems();
-
-        if ($currentItems instanceof AbstractResultSet) {
-            return Json::encode($currentItems->toArray());
-        }
-        return Json::encode($currentItems);
     }
 
     /**
