@@ -13,7 +13,7 @@ use ArrayIterator;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
-class Paginator extends SimplePaginator
+class Paginator extends GlobalPaginator
 {
     use JsonSerializeTrait,
         RenderTrait,
