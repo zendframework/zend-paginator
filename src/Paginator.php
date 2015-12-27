@@ -19,12 +19,12 @@ use Zend\Filter\FilterInterface;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;
 use Zend\Stdlib\ArrayUtils;
-use Zend\View;
 use Zend\ServiceManager\ServiceManager;
 
 class Paginator implements Countable, IteratorAggregate
 {
-    use JsonSerializeTrait;
+    use JsonSerializeTrait,
+        RenderTrait;
 
     /**
      * The cache tag prefix used to namespace Paginator results in the cache
@@ -144,13 +144,6 @@ class Paginator implements Countable, IteratorAggregate
      * @var \stdClass
      */
     protected $pages = null;
-
-    /**
-     * View instance used for self rendering
-     *
-     * @var \Zend\View\Renderer\RendererInterface
-     */
-    protected $view = null;
 
     /**
      * Set a global config
@@ -301,23 +294,6 @@ class Paginator implements Countable, IteratorAggregate
                 }
             }
         }
-    }
-
-    /**
-     * Serializes the object as a string.  Proxies to {@link render()}.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        try {
-            $return = $this->render();
-            return $return;
-        } catch (\Exception $e) {
-            trigger_error($e->getMessage(), E_USER_WARNING);
-        }
-
-        return '';
     }
 
     /**
@@ -715,34 +691,7 @@ class Paginator implements Countable, IteratorAggregate
         return $data;
     }
 
-    /**
-     * Retrieves the view instance.
-     *
-     * If none registered, instantiates a PhpRenderer instance.
-     *
-     * @return \Zend\View\Renderer\RendererInterface|null
-     */
-    public function getView()
-    {
-        if ($this->view === null) {
-            $this->setView(new View\Renderer\PhpRenderer());
-        }
 
-        return $this->view;
-    }
-
-    /**
-     * Sets the view object.
-     *
-     * @param  \Zend\View\Renderer\RendererInterface $view
-     * @return Paginator
-     */
-    public function setView(View\Renderer\RendererInterface $view = null)
-    {
-        $this->view = $view;
-
-        return $this;
-    }
 
     /**
      * Brings the item number in range of the page.
@@ -786,23 +735,6 @@ class Paginator implements Countable, IteratorAggregate
         }
 
         return $pageNumber;
-    }
-
-    /**
-     * Renders the paginator.
-     *
-     * @param  \Zend\View\Renderer\RendererInterface $view
-     * @return string
-     */
-    public function render(View\Renderer\RendererInterface $view = null)
-    {
-        if (null !== $view) {
-            $this->setView($view);
-        }
-
-        $view = $this->getView();
-
-        return $view->paginationControl($this);
     }
 
     /**
