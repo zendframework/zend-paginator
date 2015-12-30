@@ -199,21 +199,6 @@ class GlobalPaginator extends SimplePaginator implements GlobalSetupInterface
     }
 
     /**
-     * Returns the page collection.
-     *
-     * @param  string $scrollingStyle Scrolling style
-     * @return \stdClass
-     */
-    public function getPages($scrollingStyle = null)
-    {
-        if ($this->pages === null) {
-            $this->pages = $this->_createPages($scrollingStyle);
-        }
-
-        return $this->pages;
-    }
-
-    /**
      * Loads a scrolling style.
      *
      * @param string $scrollingStyle
