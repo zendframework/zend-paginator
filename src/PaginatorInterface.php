@@ -9,7 +9,9 @@
 
 namespace Zend\Paginator;
 
+use Countable;
 use Traversable;
+use IteratorAggregate;
 use Zend\Paginator\Adapter\AdapterInterface;
 
 interface PaginatorInterface extends Countable, IteratorAggregate
