@@ -46,6 +46,15 @@ class GlobalPaginator extends SimplePaginator implements GlobalSetupInterface
     protected static $defaultItemCountPerPage = 10;
 
     /**
+     * Number of items per page
+     * Override parent's class default number.
+     * When called getItemCountPerPage() method, $defaultItemCountPerPage will be used.
+     *
+     * @var int
+     */
+    protected $itemCountPerPage = null;
+
+    /**
      * Scrolling style plugin manager
      *
      * @var ScrollingStylePluginManager
