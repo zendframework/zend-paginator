@@ -82,5 +82,4 @@ trait RenderTrait
 
         return '';
     }
-
 }

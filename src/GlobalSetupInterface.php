@@ -9,7 +9,6 @@
 
 namespace Zend\Paginator;
 
-
 interface GlobalSetupInterface
 {
     /**
@@ -57,6 +56,4 @@ interface GlobalSetupInterface
      * @return ScrollingStylePluginManager
      */
     public static function getScrollingStylePluginManager();
-
-
 }

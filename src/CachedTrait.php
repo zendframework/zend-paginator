@@ -144,5 +144,4 @@ trait CachedTrait
             $this->getItemCountPerPage()
         ]));
     }
-
 }

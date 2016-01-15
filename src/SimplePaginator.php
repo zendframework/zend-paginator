@@ -355,7 +355,6 @@ class SimplePaginator implements PaginatorInterface
      */
     public function getPages($scrollingStyle = null)
     {
-
         if ($this->pages === null) {
             $this->pages = $this->_createPages($scrollingStyle);
         }

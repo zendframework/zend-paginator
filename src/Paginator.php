@@ -11,7 +11,6 @@ namespace Zend\Paginator;
 
 use ArrayIterator;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 
 class Paginator extends GlobalPaginator
 {
@@ -62,5 +61,4 @@ class Paginator extends GlobalPaginator
 
         return $items;
     }
-
 }
