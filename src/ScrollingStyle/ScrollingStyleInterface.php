@@ -9,7 +9,7 @@
 
 namespace Zend\Paginator\ScrollingStyle;
 
-use Zend\Paginator\Paginator;
+use Zend\Paginator\PaginatorInterface;
 
 interface ScrollingStyleInterface
 {
@@ -20,5 +20,5 @@ interface ScrollingStyleInterface
      * @param  int $pageRange (Optional) Page range
      * @return array
      */
-    public function getPages(Paginator $paginator, $pageRange = null);
+    public function getPages(PaginatorInterface $paginator, $pageRange = null);
 }

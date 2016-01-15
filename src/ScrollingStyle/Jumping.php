@@ -9,7 +9,7 @@
 
 namespace Zend\Paginator\ScrollingStyle;
 
-use Zend\Paginator\Paginator;
+use Zend\Paginator\PaginatorInterface;
 
 /**
  * A scrolling style in which the cursor advances to the upper bound
@@ -25,7 +25,7 @@ class Jumping implements ScrollingStyleInterface
      * @param  int $pageRange Unused
      * @return array
      */
-    public function getPages(Paginator $paginator, $pageRange = null)
+    public function getPages(PaginatorInterface $paginator, $pageRange = null)
     {
         $pageRange  = $paginator->getPageRange();
         $pageNumber = $paginator->getCurrentPageNumber();
