@@ -16,6 +16,11 @@ use Zend\Json\Json;
 trait JsonSerializeTrait
 {
 
+    /**
+     * Serializes the object as a string.  Proxies to {@link toJson()}.
+     *
+     * @return string
+     */
     public function jsonSerialize()
     {
         return $this->toJson();
