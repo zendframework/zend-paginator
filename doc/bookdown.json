@@ -1,0 +1,10 @@
+{
+    "title": "Zend\\Paginator",
+    "target": "html/",
+    "content": [
+        "book/zend.paginator.introduction.md",
+        "book/zend.paginator.usage.md",
+        "book/zend.paginator.configuration.md",
+        "book/zend.paginator.advanced.md"
+    ]
+}
