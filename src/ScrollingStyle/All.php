@@ -9,7 +9,7 @@
 
 namespace Zend\Paginator\ScrollingStyle;
 
-use Zend\Paginator\Paginator;
+use Zend\Paginator\PaginatorInterface;
 
 /**
  * A scrolling style that returns every page in the collection.
@@ -25,7 +25,7 @@ class All implements ScrollingStyleInterface
      * @param  int $pageRange Unused
      * @return array
      */
-    public function getPages(Paginator $paginator, $pageRange = null)
+    public function getPages(PaginatorInterface $paginator, $pageRange = null)
     {
         return $paginator->getPagesInRange(1, $paginator->count());
     }
