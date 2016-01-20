@@ -17,16 +17,6 @@ trait JsonSerializeTrait
 {
 
     /**
-     * Serializes the object as a string.  Proxies to {@link toJson()}.
-     *
-     * @return string
-     */
-    public function jsonSerialize()
-    {
-        return $this->toJson();
-    }
-
-    /**
      * Returns the items of the current page as JSON.
      *
      * @return string
