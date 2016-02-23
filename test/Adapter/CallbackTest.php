@@ -9,22 +9,19 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Paginator\Adapter\Callback;
-use Zend\Stdlib\CallbackHandler;
 
-/**
- * @group      Zend_Paginator
- */
-class CallbackTest extends \PHPUnit_Framework_TestCase
+class CallbackTest extends TestCase
 {
     public function testMustDefineTwoCallbacksOnConstructor()
     {
-        $itemsCallback = new CallbackHandler(function () {
+        $itemsCallback = function () {
             return [];
-        });
-        $countCallback = new CallbackHandler(function () {
+        };
+        $countCallback = function () {
             return 0;
-        });
+        };
         $adapter = new Callback($itemsCallback, $countCallback);
 
         $this->assertAttributeSame($itemsCallback, 'itemsCallback', $adapter);
@@ -34,22 +31,23 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testShouldAcceptAnyCallableOnConstructor()
     {
         $itemsCallback = function () {
-            return range(1,  10);
+            return range(1, 10);
         };
         $countCallback = 'rand';
         $adapter = new Callback($itemsCallback, $countCallback);
 
-        $this->assertAttributeInstanceOf('Zend\Stdlib\CallbackHandler', 'itemsCallback', $adapter);
-        $this->assertAttributeInstanceOf('Zend\Stdlib\CallbackHandler', 'countCallback', $adapter);
+        $this->assertAttributeInternalType('callable', 'itemsCallback', $adapter);
+        $this->assertAttributeInternalType('callable', 'countCallback', $adapter);
     }
 
     public function testMustRunItemCallbackToGetItems()
     {
-        $data = range(1,  10);
+        $data = range(1, 10);
         $itemsCallback = function () use ($data) {
             return $data;
         };
-        $countCallback = function () {};
+        $countCallback = function () {
+        };
         $adapter = new Callback($itemsCallback, $countCallback);
 
         $this->assertSame($data, $adapter->getItems(0, 10));
@@ -61,7 +59,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $itemsCallback = function ($offset, $itemCountPerPage) {
             return range($offset, $itemCountPerPage);
         };
-        $countCallback = function () {};
+        $countCallback = function () {
+        };
         $adapter = new Callback($itemsCallback, $countCallback);
 
         $this->assertSame($data, $adapter->getItems(0, 3));
@@ -70,7 +69,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testMustRunCountCallbackToCount()
     {
         $count = 1988;
-        $itemsCallback = function () {};
+        $itemsCallback = function () {
+        };
         $countCallback = function () use ($count) {
             return $count;
         };

@@ -12,6 +12,7 @@ namespace Zend\Paginator;
 use Traversable;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Stdlib\ArrayUtils;
+use Zend\ServiceManager\ServiceManager;
 
 abstract class Factory
 {
@@ -102,7 +103,7 @@ abstract class Factory
     public static function getAdapterPluginManager()
     {
         if (static::$adapters === null) {
-            static::$adapters = new AdapterPluginManager();
+            static::$adapters = new AdapterPluginManager(new ServiceManager);
         }
         return static::$adapters;
     }

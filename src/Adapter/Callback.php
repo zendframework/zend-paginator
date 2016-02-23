@@ -9,8 +9,6 @@
 
 namespace Zend\Paginator\Adapter;
 
-use Zend\Stdlib\CallbackHandler;
-
 class Callback implements AdapterInterface
 {
     /**
@@ -30,19 +28,11 @@ class Callback implements AdapterInterface
     /**
      * Constructs instance.
      *
-     * @param CallbackHandler|callable $itemsCallback Callback to be executed to retrieve the items for a page.
-     * @param CallbackHandler|callable $countCallback Callback to be executed to retrieve the total number of items.
+     * @param callable $itemsCallback Callback to be executed to retrieve the items for a page.
+     * @param callable $countCallback Callback to be executed to retrieve the total number of items.
      */
-    public function __construct($itemsCallback, $countCallback)
+    public function __construct(callable $itemsCallback, callable $countCallback)
     {
-        if (! $itemsCallback instanceof CallbackHandler) {
-            $itemsCallback = new CallbackHandler($itemsCallback);
-        }
-
-        if (! $countCallback instanceof CallbackHandler) {
-            $countCallback = new CallbackHandler($countCallback);
-        }
-
         $this->itemsCallback = $itemsCallback;
         $this->countCallback = $countCallback;
     }
@@ -58,7 +48,7 @@ class Callback implements AdapterInterface
      */
     public function getItems($offset, $itemCountPerPage)
     {
-        return $this->itemsCallback->call([$offset, $itemCountPerPage]);
+        return call_user_func($this->itemsCallback, $offset, $itemCountPerPage);
     }
 
     /**
@@ -70,6 +60,6 @@ class Callback implements AdapterInterface
      */
     public function count()
     {
-        return $this->countCallback->call();
+        return call_user_func($this->countCallback);
     }
 }

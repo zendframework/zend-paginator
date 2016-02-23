@@ -9,16 +9,14 @@
 
 namespace Zend\Paginator\Adapter\Service;
 
+use Iterator;
 use Interop\Container\ContainerInterface;
-use Zend\Paginator\Adapter\Callback;
+use Zend\Paginator\Iterator as IteratorAdapter;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-/**
- * Create and return an instance of the Callback adapter.
- */
-class CallbackFactory implements FactoryInterface
+class IteratorFactory implements FactoryInterface
 {
     /**
      * Options to use when creating adapter (v2)
@@ -30,33 +28,43 @@ class CallbackFactory implements FactoryInterface
     /**
      * {@inheritDoc}
      *
-     * @return Callback
+     * @return IteratorAdapter
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $options = is_array($options) ? $options : [];
-        if (count($options) < 2) {
+        if (null === $options || empty($options)) {
             throw new ServiceNotCreatedException(sprintf(
-                '%s requires that at least two options, an Items and Count callback, be provided; received %d options',
-                __CLASS__,
-                count($options)
+                '%s requires a minimum of an Iterator instance',
+                IteratorAdapter::class
             ));
         }
-        $itemsCallback = array_shift($options);
-        $countCallback = array_shift($options);
-        return new Callback($itemsCallback, $countCallback);
+
+        $iterator = array_shift($options);
+
+        if (! $iterator instanceof Iterator) {
+            throw new ServiceNotCreatedException(sprintf(
+                '%s requires an Iterator instance; received %s',
+                IteratorAdapter::class,
+                (is_object($iterator) ? get_class($iterator) : gettype($iterator))
+            ));
+        }
+
+        return new $requestedName($iterator);
     }
 
     /**
-     * Create and return a Callback instance (v2)
+     * Create and return an IteratorAdapter instance (v2)
      *
      * @param ServiceLocatorInterface $container
      * @param null|string $name
      * @param string $requestedName
-     * @return Callback
+     * @return IteratorAdapter
      */
-    public function createService(ServiceLocatorInterface $container, $name = null, $requestedName = Callback::class)
-    {
+    public function createService(
+        ServiceLocatorInterface $container,
+        $name = null,
+        $requestedName = IteratorAdapter::class
+    ) {
         return $this($container, $requestedName, $this->creationOptions);
     }
 

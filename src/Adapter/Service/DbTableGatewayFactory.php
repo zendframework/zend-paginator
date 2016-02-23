@@ -9,42 +9,68 @@
 
 namespace Zend\Paginator\Adapter\Service;
 
+use Interop\Container\ContainerInterface;
 use Zend\Paginator\Adapter\DbTableGateway;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class DbTableGatewayFactory implements
-    FactoryInterface,
-    MutableCreationOptionsInterface
+class DbTableGatewayFactory implements FactoryInterface
 {
     /**
-     * Adapter options
-     * @var array
+     * Options to use when creating adapter (v2)
+     *
+     * @var null|array
      */
     protected $creationOptions;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCreationOptions(array $creationOptions)
-    {
-        $this->creationOptions = $creationOptions;
-    }
 
     /**
      * {@inheritDoc}
      *
      * @return DbTableGateway
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new DbTableGateway(
-            $this->creationOptions[0],
-            isset($this->creationOptions[1]) ? $this->creationOptions[1] : null,
-            isset($this->creationOptions[2]) ? $this->creationOptions[2] : null,
-            isset($this->creationOptions[3]) ? $this->creationOptions[3] : null,
-            isset($this->creationOptions[4]) ? $this->creationOptions[4] : null
+        if (null === $options || empty($options)) {
+            throw new ServiceNotCreatedException(sprintf(
+                '%s requires a minimum of a zend-db TableGateway instance',
+                DbTableGateway::class
+            ));
+        }
+
+        return new $requestedName(
+            $options[0],
+            isset($options[1]) ? $options[1] : null,
+            isset($options[2]) ? $options[2] : null,
+            isset($options[3]) ? $options[3] : null,
+            isset($options[4]) ? $options[4] : null
         );
+    }
+
+    /**
+     * Create and return a DbTableGateway instance (v2)
+     *
+     * @param ServiceLocatorInterface $container
+     * @param null|string $name
+     * @param string $requestedName
+     * @return DbTableGateway
+     */
+    public function createService(
+        ServiceLocatorInterface $container,
+        $name = null,
+        $requestedName = DbTableGateway::class
+    ) {
+        return $this($container, $requestedName, $this->creationOptions);
+    }
+
+    /**
+     * Options to use with factory (v2)
+     *
+     * @param array $creationOptions
+     * @return void
+     */
+    public function setCreationOptions(array $creationOptions)
+    {
+        $this->creationOptions = $creationOptions;
     }
 }

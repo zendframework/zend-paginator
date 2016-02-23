@@ -119,7 +119,9 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
         Paginator\Paginator::setGlobalConfig($this->config->default);
 
-        Paginator\Paginator::setScrollingStylePluginManager(new Paginator\ScrollingStylePluginManager());
+        Paginator\Paginator::setScrollingStylePluginManager(new Paginator\ScrollingStylePluginManager(
+            $this->getMockBuilder('Interop\Container\ContainerInterface')->getMock()
+        ));
 
         $this->paginator->setCacheEnabled(true);
     }
