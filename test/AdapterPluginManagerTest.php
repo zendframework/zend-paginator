@@ -18,8 +18,6 @@ use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Paginator\Adapter;
 use Zend\Paginator\AdapterPluginManager;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
 
 /**
  * @group      Zend_Paginator
@@ -28,7 +26,9 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected $adapterPluginManager;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+    */
     protected $mockSelect;
 
     protected $mockAdapter;
@@ -103,21 +103,5 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 
         $plugin = $this->adapterPluginManager->get('callback', [$itemsCallback, $countCallback]);
         $this->assertInstanceOf(Adapter\Callback::class, $plugin);
-    }
-
-    public function testCanRetrievePluginManagerWithServiceManager()
-    {
-        $config = new ServiceManagerConfig([
-            'factories' => [
-                'PaginatorPluginManager'  => 'Zend\Mvc\Service\PaginatorPluginManagerFactory',
-            ],
-            'services' => [
-                'Config' => []
-            ]
-        ]);
-        $sm = $this->serviceManager = new ServiceManager($config->toArray());
-        //$sm->setService('Config', []);
-        $adapterPluginManager = $sm->get('PaginatorPluginManager');
-        $this->assertInstanceOf(AdapterPluginManager::class, $adapterPluginManager);
     }
 }

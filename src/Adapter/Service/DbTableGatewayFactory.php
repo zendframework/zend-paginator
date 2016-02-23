@@ -9,11 +9,21 @@
 
 namespace Zend\Paginator\Adapter\Service;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
+use Zend\Paginator\Adapter\DbTableGateway;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DbTableGatewayFactory implements FactoryInterface
 {
+    /**
+     * Options to use when creating adapter (v2)
+     *
+     * @var null|array
+     */
+    protected $creationOptions;
+
     /**
      * {@inheritDoc}
      *
@@ -21,6 +31,13 @@ class DbTableGatewayFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        if (null === $options || empty($options)) {
+            throw new ServiceNotCreatedException(sprintf(
+                '%s requires a minimum of a zend-db TableGateway instance',
+                DbTableGateway::class
+            ));
+        }
+
         return new $requestedName(
             $options[0],
             isset($options[1]) ? $options[1] : null,
@@ -28,5 +45,32 @@ class DbTableGatewayFactory implements FactoryInterface
             isset($options[3]) ? $options[3] : null,
             isset($options[4]) ? $options[4] : null
         );
+    }
+
+    /**
+     * Create and return a DbTableGateway instance (v2)
+     *
+     * @param ServiceLocatorInterface $container
+     * @param null|string $name
+     * @param string $requestedName
+     * @return DbTableGateway
+     */
+    public function createService(
+        ServiceLocatorInterface $container,
+        $name = null,
+        $requestedName = DbTableGateway::class
+    ) {
+        return $this($container, $requestedName, $this->creationOptions);
+    }
+
+    /**
+     * Options to use with factory (v2)
+     *
+     * @param array $creationOptions
+     * @return void
+     */
+    public function setCreationOptions(array $creationOptions)
+    {
+        $this->creationOptions = $creationOptions;
     }
 }

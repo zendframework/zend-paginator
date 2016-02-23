@@ -18,7 +18,9 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $mockSelect;
 
     protected $mockAdapter;
