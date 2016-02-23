@@ -12,13 +12,21 @@ namespace Zend\Paginator\Adapter\Service;
 use Interop\Container\ContainerInterface;
 use Zend\Paginator\Adapter\Callback;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Create and return an instance of the Callback adapter.
  */
 class CallbackFactory implements FactoryInterface
 {
+    /**
+     * Options to use when creating adapter (v2)
+     *
+     * @var null|array
+     */
+    protected $creationOptions;
+
     /**
      * {@inheritDoc}
      *
@@ -37,5 +45,29 @@ class CallbackFactory implements FactoryInterface
         $itemsCallback = array_shift($options);
         $countCallback = array_shift($options);
         return new Callback($itemsCallback, $countCallback);
+    }
+
+    /**
+     * Create and return a Callback instance (v2)
+     *
+     * @param ServiceLocatorInterface $container
+     * @param null|string $name
+     * @param string $requestedName
+     * @return Callback
+     */
+    public function createService(ServiceLocatorInterface $container, $name = null, $requestedName = Callback::class)
+    {
+        return $this($container, $requestedName, $this->creationOptions);
+    }
+
+    /**
+     * Options to use with factory (v2)
+     *
+     * @param array $creationOptions
+     * @return void
+     */
+    public function setCreationOptions(array $creationOptions)
+    {
+        $this->creationOptions = $creationOptions;
     }
 }

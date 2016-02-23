@@ -9,7 +9,8 @@
 
 namespace Zend\Paginator\Adapter;
 
-use Zend\Paginator;
+use Countable;
+use Zend\Paginator\SerializableLimitIterator;
 
 class Iterator implements AdapterInterface
 {
@@ -31,11 +32,11 @@ class Iterator implements AdapterInterface
      * Constructor.
      *
      * @param  \Iterator $iterator Iterator to paginate
-     * @throws \Zend\Paginator\Adapter\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function __construct(\Iterator $iterator)
     {
-        if (!$iterator instanceof \Countable) {
+        if (! $iterator instanceof Countable) {
             throw new Exception\InvalidArgumentException('Iterator must implement Countable');
         }
 
@@ -48,14 +49,14 @@ class Iterator implements AdapterInterface
      *
      * @param  int $offset Page offset
      * @param  int $itemCountPerPage Number of items per page
-     * @return array|\Zend\Paginator\SerializableLimitIterator
+     * @return array|SerializableLimitIterator
      */
     public function getItems($offset, $itemCountPerPage)
     {
         if ($this->count == 0) {
             return [];
         }
-        return new Paginator\SerializableLimitIterator($this->iterator, $offset, $itemCountPerPage);
+        return new SerializableLimitIterator($this->iterator, $offset, $itemCountPerPage);
     }
 
     /**

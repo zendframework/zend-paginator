@@ -18,7 +18,6 @@ use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Paginator\Adapter;
 use Zend\Paginator\AdapterPluginManager;
-use Zend\ServiceManager\ServiceManager;
 
 /**
  * @group      Zend_Paginator
@@ -27,7 +26,9 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected $adapterPluginManager;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+    */
     protected $mockSelect;
 
     protected $mockAdapter;
