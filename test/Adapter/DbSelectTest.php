@@ -13,6 +13,7 @@ use Zend\Paginator\Adapter\DbSelect;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Adapter\DbSelect<extended>
  */
 class DbSelectTest extends \PHPUnit_Framework_TestCase
 {

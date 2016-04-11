@@ -14,6 +14,7 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\ScrollingStyle\All<extended>
  */
 class AllTest extends \PHPUnit_Framework_TestCase
 {

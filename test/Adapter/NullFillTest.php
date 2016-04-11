@@ -14,6 +14,7 @@ use Zend\Paginator;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Adapter\NullFill<extended>
  */
 class NullFillTest extends \PHPUnit_Framework_TestCase
 {
