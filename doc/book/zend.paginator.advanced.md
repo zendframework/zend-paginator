@@ -8,8 +8,8 @@ case, you will need to write your own.
 To do so, you must implement `Zend\Paginator\Adapter\AdapterInterface`. There are two methods
 required to do this:
 
-- count()
-- getItems($offset, $itemCountPerPage)
+* count()
+* getItems($offset, $itemCountPerPage)
 
 Additionally, you'll want to implement a constructor that takes your data source as a parameter and
 stores it as a protected or private property. How you wish to go about doing this specifically is up
