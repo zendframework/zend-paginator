@@ -7,9 +7,11 @@ data. For that reason, all data access takes place through data source adapters.
 ship with Zend Framework by default:
 
 > ### Note
-Instead of selecting every matching row of a given query, the DbSelect adapter retrieves only the
-smallest amount of data necessary for displaying the current page. Because of this, a second query
-is dynamically generated to determine the total number of matching rows.
+>
+> Instead of selecting every matching row of a given query, the `DbSelect` adapter
+> retrieves only the smallest amount of data necessary for displaying the
+> current page. Because of this, a second query is dynamically generated to
+> determine the total number of matching rows.
 
 To create an instance of `Zend\Paginator`, you must supply an adapter to the constructor:
 
