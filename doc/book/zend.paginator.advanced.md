@@ -8,8 +8,8 @@ case, you will need to write your own.
 To do so, you must implement `Zend\Paginator\Adapter\AdapterInterface`. There are two methods
 required to do this:
 
-- count()
-- getItems($offset, $itemCountPerPage)
+- `count()`
+- `getItems($offset, $itemCountPerPage)`
 
 Additionally, you'll want to implement a constructor that takes your data source as a parameter and
 stores it as a protected or private property. How you wish to go about doing this specifically is up
@@ -17,7 +17,7 @@ to you.
 
 If you've ever used the SPL interface
 [Countable](http://www.php.net/~helly/php/ext/spl/interfaceCountable.html), you're familiar with
-`count()`. As used with `Zend\Paginator`, this is the total number of items in the data collection.
+`count()`. As used with zend-paginator, this is the total number of items in the data collection.
 Additionally, the `Zend\Paginator\Paginator` instance provides a method `countAllItems()` that
 proxies to the adapter `count()` method.
 
