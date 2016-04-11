@@ -48,6 +48,7 @@ class AdapterPluginManager extends AbstractPluginManager
         'Array'          => Adapter\ArrayAdapter::class,
         'iterator'       => Adapter\Iterator::class,
         'Iterator'       => Adapter\Iterator::class,
+        'zendpaginatoradapternull' => Adapter\NullFill::class,
     ];
 
     /**
