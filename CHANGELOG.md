@@ -6,7 +6,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#19](https://github.com/zendframework/zend-paginator/pull/19) adds:
+  - `Zend\Paginator\AdapterPluginManagerFactory`
+  - `Zend\Paginator\ScrollingStylePluginManagerFactory`
+  - `ConfigProvider`, which maps the `AdapterPluginManager` and
+    `ScrollingStylePluginManager` services to the above factories.
+  - `Module`, which does the same, for zend-mvc contexts.
 
 ### Deprecated
 
