@@ -18,7 +18,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#7](https://github.com/zendframework/zend-paginator/pull/7) adds aliases for
+  the old `Null` adapter, mapping them to the new `NullFill` adapter.
 
 ## 2.6.0 - 2016-02-23
 
