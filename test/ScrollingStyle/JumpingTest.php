@@ -14,6 +14,7 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\ScrollingStyle\Jumping<extended>
  */
 class JumpingTest extends \PHPUnit_Framework_TestCase
 {

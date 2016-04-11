@@ -13,6 +13,7 @@ use Zend\Paginator\Adapter;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Adapter\ArrayAdapter<extended>
  */
 class ArrayTest extends \PHPUnit_Framework_TestCase
 {
