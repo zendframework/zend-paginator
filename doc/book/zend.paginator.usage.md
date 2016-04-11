@@ -6,10 +6,12 @@ In order to paginate items into pages, `Zend\Paginator` must have a generic way 
 data. For that reason, all data access takes place through data source adapters. Several adapters
 ship with Zend Framework by default:
 
-> ## Note
-Instead of selecting every matching row of a given query, the DbSelect adapter retrieves only the
-smallest amount of data necessary for displaying the current page. Because of this, a second query
-is dynamically generated to determine the total number of matching rows.
+> ### Note
+>
+> Instead of selecting every matching row of a given query, the `DbSelect` adapter
+> retrieves only the smallest amount of data necessary for displaying the
+> current page. Because of this, a second query is dynamically generated to
+> determine the total number of matching rows.
 
 To create an instance of `Zend\Paginator`, you must supply an adapter to the constructor:
 
@@ -199,7 +201,7 @@ a simple echo statement:
 <?php echo $this->paginator; ?>
 ```
 
-> ## Note
+> ### Note
 Of course, it's possible to use `Zend\Paginator` with other template engines. For example, with
 Smarty you might do the following:
 ```php
