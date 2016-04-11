@@ -15,6 +15,7 @@ use Zend\Paginator\Adapter\DbTableGateway;
 
 /**
  * @group Zend_Paginator
+ * @covers  Zend\Paginator\Adapter\DbTableGateway<extended>
  */
 class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
 {

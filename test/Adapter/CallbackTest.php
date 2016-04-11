@@ -12,6 +12,9 @@ namespace ZendTest\Paginator\Adapter;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Paginator\Adapter\Callback;
 
+/**
+ * @covers  Zend\Paginator\Adapter\Callback<extended>
+ */
 class CallbackTest extends TestCase
 {
     public function testMustDefineTwoCallbacksOnConstructor()

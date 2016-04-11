@@ -14,6 +14,7 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\ScrollingStyle\Elastic<extended>
  */
 class ElasticTest extends \PHPUnit_Framework_TestCase
 {

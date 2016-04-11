@@ -15,6 +15,7 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Factory<extended>
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {

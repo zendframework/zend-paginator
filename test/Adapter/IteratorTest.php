@@ -14,6 +14,7 @@ use Zend\Paginator\Paginator;
 
 /**
  * @group      Zend_Paginator
+ * @covers  Zend\Paginator\Adapter\Iterator<extended>
  */
 class IteratorTest extends \PHPUnit_Framework_TestCase
 {
