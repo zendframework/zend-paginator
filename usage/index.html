@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    <title>Usage - zend-paginator</title>
+
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/zf.css" rel="stylesheet">
+    <link href="../css/prism-zf.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <span class="navbar-brand">
+              <a class="logo-link" href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Zend Framework"><img src="../img/zf-logo-mark.png" height="28" alt="Zend Framework" /></a>
+              <a href="..">zend-paginator</a>
+            </span>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../intro/">Intro</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Usage</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../configuration/">Configuration</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../advanced/">Advanced</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" class="component-toggle" data-toggle="tooltip" data-placement="bottom" title="Show component list">
+                        <i class="fa fa-book"></i> Components
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li>
+                        <a href="https://github.com/zendframework/zend-paginator">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- content:begin -->
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#usage">Usage</a></li>
+        
+            <li><a href="#paginating-data-collections">Paginating data collections</a></li>
+        
+            <li><a href="#the-dbselect-adapter">The DbSelect adapter</a></li>
+        
+            <li><a href="#rendering-pages-with-view-scripts">Rendering pages with view scripts</a></li>
+        
+    
+    </ul>
+
+    
+    <ul class="pager hidden-print">
+      <li class="previous">
+        <a rel="prev" href="../intro/"><i class="fa fa-arrow-left"></i> Previous</a>
+      </li>
+      <li class="next">
+        <a rel="next" href="../configuration/">Next <i class="fa fa-arrow-right"></i></a>
+      </li>
+    </ul>
+    
+</div></div>
+        <div class="col-md-9" role="main">
+
+<ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
+  <li><a href="..">Docs</a> &raquo;</li>
+  
+    
+  
+  <li class="active">Usage</li>
+</ol>
+
+<h1 id="usage">Usage</h1>
+<h2 id="paginating-data-collections">Paginating data collections</h2>
+<p>In order to paginate items into pages, <code>Zend\Paginator</code> must have a generic way
+of accessing that data. For that reason, all data access takes place through
+data source adapters. Several adapters ship with zend-paginator by default:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Adapter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArrayAdapter</td>
+<td>Accepts a PHP array.</td>
+</tr>
+<tr>
+<td>DbSelect</td>
+<td>Accepts a <code>Zend\Db\Sql\Select</code> instance, plus either a <code>Zend\Db\Adapter\Adapter</code> or <code>Zend\Db\Sql\Sql</code> instance; paginates rows from a database.</td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td>Accepts any <code>Iterator</code> instance.</td>
+</tr>
+<tr>
+<td>NullFill</td>
+<td>Dummy paginator.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h3 id="database-optimizations">Database optimizations</h3>
+<p>Instead of selecting every matching row of a given query, the <code>DbSelect</code> adapter
+retrieves only the smallest amount of data necessary for displaying the
+current page. Because of this, a second query is dynamically generated to
+determine the total number of matching rows.</p>
+</blockquote>
+<p>To create a paginator instance, you must supply an adapter to the constructor:</p>
+<pre class="codehilite"><code class="language-php">use Zend\Paginator\Adapter;
+use Zend\Paginator\Paginator;
+
+$paginator = new Paginator(new Adapter\ArrayAdapter($array));</code></pre>
+
+
+<p>In the case of the <code>NullFill</code> adapter, in lieu of a data collection you must
+supply an item count to its constructor.</p>
+<p>Although the instance is technically usable in this state, in your controller
+action you'll need to tell the paginator what page number the user requested.
+This allows advancing through the paginated data.</p>
+<pre class="codehilite"><code class="language-php">$paginator-&gt;setCurrentPageNumber($page);</code></pre>
+
+
+<p>The simplest way to keep track of this value is through a URL parameter. The
+following is an example <a href="https://zendframework.github.com/zend-router">zend-router</a>
+route configuration:</p>
+<pre class="codehilite"><code class="language-php">return [
+    'routes' =&gt; [
+        'paginator' =&gt; [
+            'type' =&gt; 'segment',
+            'options' =&gt; [
+                'route' =&gt; '/list/[page/:page]',
+                'defaults' =&gt; [
+                    'page' =&gt; 1,
+                ],
+            ],
+        ],
+    ],
+];</code></pre>
+
+
+<p>With the above route (and using <a href="https://zendframework.github.io/zend-mvc/">zend-mvc</a>
+controllers), you might set the current page number in your controller action
+like so:</p>
+<pre class="codehilite"><code class="language-php">$paginator-&gt;setCurrentPageNumber($this-&gt;params()-&gt;fromRoute('page'));</code></pre>
+
+
+<p>There are other options available; see the <a href="../configuration/">Configuration chapter</a>
+for more on them.</p>
+<p>Finally, you'll need to assign the paginator instance to your view. If you're
+using zend-mvc and zend-view, you can assign the paginator object to your view
+model:</p>
+<pre class="codehilite"><code class="language-php">$vm = new ViewModel();
+$vm-&gt;setVariable('paginator', $paginator);
+return $vm;</code></pre>
+
+
+<h2 id="the-dbselect-adapter">The DbSelect adapter</h2>
+<p>Most adapters receive their datasets directly. However, the <code>DbSelect</code> adapter
+requires a more detailed explanation regarding the retrieval and count of the
+data from the database.</p>
+<p>You do not have to retrieve data from the database prior to using the <code>DbSelect</code>
+adapter; the adapter will do the retrieval for you, as well as provide a count
+of total pages. If additional work has to be done on the database results which
+cannot be expressed via the provided <code>Zend\Db\Sql\Select</code>, object you must
+extend the adapter and override the <code>getItems()</code> method.</p>
+<p>Additionally this adapter does <strong>not</strong> fetch all records from the database in
+order to count them.  Instead, the adapter manipulates the original query to
+produce a corresponding <code>COUNT</code> query, and uses the new query to get the number
+of rows.  While this approach requires an extra round-trip to the database,
+doing so is stillmany times faster than fetching an entire result set and using
+<code>count()</code>, especially with large collections of data.</p>
+<p>The database adapter will try and build the most efficient query that will
+execute on pretty much any modern database. However, depending on your database
+or even your own schema setup, there might be more efficient ways to get a
+rowcount. For this scenario, you can extend the provided <code>DbSelect</code> adapter and
+implement a custom <code>count()</code> method.</p>
+<p>For example, if you keep track of the count of blog posts in a separate table,
+you could achieve a faster count query with the following setup:</p>
+<pre class="codehilite"><code class="language-php">use Zend\Db\Sql\Select;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
+
+class MyDbSelect extends DbSelect
+{
+    public function count()
+    {
+        if ($this-&gt;rowCount) {
+            return $this-&gt;rowCount;
+        }
+
+        $select = new Select();
+        $select
+          -&gt;from('item_counts')
+          -&gt;columns(['c'=&gt;'post_count']);
+
+        $statement = $this-&gt;sql-&gt;prepareStatementForSqlObject($select);
+        $result    = $statement-&gt;execute();
+        $row       = $result-&gt;current();
+        $this-&gt;rowCount = $row['c'];
+
+        return $this-&gt;rowCount;
+    }
+}
+
+$adapter = new MyDbSelect($query, $adapter);
+$paginator = new Paginator($adapter);</code></pre>
+
+
+<p>This approach will probably not give you a huge performance gain on small
+collections and/or simple select queries. However, with complex queries and
+large collections, a similar approach could give you a significant performance
+boost.</p>
+<p>The <code>DbSelect</code> adapter also supports returning of fetched records using the
+<a href="http://zendframework.github.io/zend-db/result-set/">ResultSet subcomponent of zend-db</a>.
+You can override the concrete <code>ResultSet</code> implementation by passing an object
+implementing <code>Zend\Db\ResultSet\ResultSetInterface</code> as the third constructor
+argument to the <code>DbSelect</code> adapter:</p>
+<pre class="codehilite"><code class="language-php">use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
+
+// $objectPrototype is an instance of our custom entity
+// $hydrator is a custom hydrator for our entity
+// (implementing Zend\Hydrator\HydratorInterface)
+$resultSet = new HydratingResultSet($hydrator, $objectPrototype);
+
+$adapter = new DbSelect($query, $dbAdapter, $resultSet)
+$paginator = new Zend\Paginator\Paginator($adapter);</code></pre>
+
+
+<p>Now when we iterate over <code>$paginator</code> we will get instances of our custom entity
+instead of associative arrays.</p>
+<h2 id="rendering-pages-with-view-scripts">Rendering pages with view scripts</h2>
+<p>The view script is used to render the page items (if you're using
+zend-paginator to do so) and display the pagination control.</p>
+<p>Because <code>Zend\Paginator\Paginator</code> implements the SPL interface
+<a href="http://php.net/IteratorAggregate">IteratorAggregate</a>, you can loop over an
+instance using <code>foreach</code>:</p>
+<pre class="codehilite"><code class="language-php">&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Example&lt;/h1&gt;
+&lt;?php if (count($this-&gt;paginator)): ?&gt;
+&lt;ul&gt;
+&lt;?php foreach ($this-&gt;paginator as $item): ?&gt;
+  &lt;li&gt;&lt;?= $item; ?&gt;&lt;/li&gt;
+&lt;?php endforeach; ?&gt;
+&lt;/ul&gt;
+&lt;?php endif; ?&gt;
+
+&lt;?= $this-&gt;paginationControl(
+    $this-&gt;paginator,
+    'Sliding',
+    'my_pagination_control',
+    ['route' =&gt; 'application/paginator']
+) ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+
+<p>Notice the view helper call near the end. <code>PaginationControl</code> accepts up to four
+parameters: the paginator instance, a scrolling style, a view script name, and
+an array of additional parameters.</p>
+<p>The second and third parameters are very important. Whereas the view script name
+is used to determine how the pagination control should <strong>look</strong>, the scrolling
+style is used to control how it should <strong>behave</strong>. Say the view script is in the
+style of a search pagination control, like the one below:</p>
+<p><img alt="Pagination controls" src="../images/usage-rendering-control.png" class="img-responsive"/></p>
+<p>What happens when the user clicks the "next" link a few times? Well, any number of things could
+happen:</p>
+<ul>
+<li>The current page number could stay in the middle as you click through (as it
+  does on Yahoo!)</li>
+<li>It could advance to the end of the page range and then appear again on the
+  left when the user clicks "next" one more time. </li>
+<li>The page numbers might even expand and contract as the user advances (or
+  "scrolls") through them (as they do on Google).</li>
+</ul>
+<p>There are four scrolling styles packaged with Zend Framework:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Scrolling style</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All</td>
+<td>Returns every page. This is useful for dropdown menu pagination controls with relatively few pages. In these cases, you want all pages available to the user at once.</td>
+</tr>
+<tr>
+<td>Elastic</td>
+<td>A Google-like scrolling style that expands and contracts as a user scrolls through the pages.</td>
+</tr>
+<tr>
+<td>Jumping</td>
+<td>As users scroll through, the page number advances to the end of a given range, then starts again at the beginning of the new range.</td>
+</tr>
+<tr>
+<td>Sliding</td>
+<td>A Yahoo!-like scrolling style that positions the current page number in the center of the page range, or as close as possible. This is the default style.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The fourth and final parameter is reserved for an optional associative array of
+variables that you want available in your view (available via <code>$this</code>). For
+instance, these values could include extra URL parameters for pagination links.</p>
+<p>By setting the default view script name, default scrolling style, and view
+instance, you can eliminate the calls to <code>PaginationControl</code> completely:</p>
+<pre class="codehilite"><code class="language-php">use Zend\Paginator\Paginator;
+use Zend\View\Helper\PaginationControl;
+
+Paginator::setDefaultScrollingStyle('Sliding');
+PaginationControl::setDefaultViewPartial('my_pagination_control');</code></pre>
+
+
+<p>When all of these values are set, you can render the pagination control inside
+your view script by echoing the paginator instance:</p>
+<pre class="codehilite"><code class="language-php">&lt;?= $this-&gt;paginator ?&gt;</code></pre>
+
+
+<blockquote>
+<h3 id="using-other-template-engines">Using other template engines</h3>
+<p>Of course, it's possible to use zend-paginator with other template engines.
+For example, with Smarty you might do the following:</p>
+<pre class="codehilite"><code class="language-php">$smarty-assign('pages', $paginator-getPages());</code></pre>
+
+
+<p>You could then access paginator values from a template like so:</p>
+<pre class="codehilite"><code class="language-php">{$pages.pageCount}</code></pre>
+
+
+</blockquote>
+<h3 id="example-pagination-controls">Example pagination controls</h3>
+<p>The following example pagination controls will help you get started with
+zend-view:</p>
+<p>Search pagination:</p>
+<pre class="codehilite"><code class="language-php">&lt;!--
+See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
+--&gt;
+
+&lt;?php if ($this-&gt;pageCount): ?&gt;
+&lt;div class=&quot;paginationControl&quot;&gt;
+&lt;!-- Previous page link --&gt;
+&lt;?php if (isset($this-&gt;previous)): ?&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;&quot;&gt;
+    &amp;lt; Previous
+  &lt;/a&gt; |
+&lt;?php else: ?&gt;
+  &lt;span class=&quot;disabled&quot;&gt;&amp;lt; Previous&lt;/span&gt; |
+&lt;?php endif; ?&gt;
+
+&lt;!-- Numbered page links --&gt;
+&lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
+  &lt;?php if ($page != $this-&gt;current): ?&gt;
+    &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]); ?&gt;&quot;&gt;
+        &lt;?= $page; ?&gt;
+    &lt;/a&gt; |
+  &lt;?php else: ?&gt;
+    &lt;?= $page; ?&gt; |
+  &lt;?php endif; ?&gt;
+&lt;?php endforeach; ?&gt;
+
+&lt;!-- Next page link --&gt;
+&lt;?php if (isset($this-&gt;next)): ?&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;&quot;&gt;
+    Next &amp;gt;
+  &lt;/a&gt;
+&lt;?php else: ?&gt;
+  &lt;span class=&quot;disabled&quot;&gt;Next &amp;gt;&lt;/span&gt;
+&lt;?php endif; ?&gt;
+&lt;/div&gt;
+&lt;?php endif; ?&gt;</code></pre>
+
+
+<p>Item pagination:</p>
+<pre class="codehilite"><code class="language-php">&lt;!--
+See http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination
+--&gt;
+
+&lt;?php if ($this-&gt;pageCount): ?&gt;
+&lt;div class=&quot;paginationControl&quot;&gt;
+&lt;?= $this-&gt;firstItemNumber; ?&gt; - &lt;?= $this-&gt;lastItemNumber; ?&gt;
+of &lt;?= $this-&gt;totalItemCount; ?&gt;
+
+&lt;!-- First page link --&gt;
+&lt;?php if (isset($this-&gt;previous)): ?&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;first]); ?&gt;&quot;&gt;
+    First
+  &lt;/a&gt; |
+&lt;?php else: ?&gt;
+  &lt;span class=&quot;disabled&quot;&gt;First&lt;/span&gt; |
+&lt;?php endif; ?&gt;
+
+&lt;!-- Previous page link --&gt;
+&lt;?php if (isset($this-&gt;previous)): ?&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;&quot;&gt;
+    &amp;lt; Previous
+  &lt;/a&gt; |
+&lt;?php else: ?&gt;
+  &lt;span class=&quot;disabled&quot;&gt;&amp;lt; Previous&lt;/span&gt; |
+&lt;?php endif; ?&gt;
+
+&lt;!-- Next page link --&gt;
+&lt;?php if (isset($this-&gt;next)): ?&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;&quot;&gt;
+    Next &amp;gt;
+  &lt;/a&gt; |
+&lt;?php else: ?&gt;
+  &lt;span class=&quot;disabled&quot;&gt;Next &amp;gt;&lt;/span&gt; |
+&lt;?php endif; ?&gt;
+
+&lt;!-- Last page link --&gt;
+&lt;?php if (isset($this-&gt;next)): ?&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;last]); ?&gt;&quot;&gt;
+    Last
+  &lt;/a&gt;
+&lt;?php else: ?&gt;
+  &lt;span class=&quot;disabled&quot;&gt;Last&lt;/span&gt;
+&lt;?php endif; ?&gt;
+
+&lt;/div&gt;
+&lt;?php endif; ?&gt;</code></pre>
+
+
+<p>Dropdown pagination:</p>
+<pre class="codehilite"><code class="language-php">&lt;?php if ($this-&gt;pageCount): ?&gt;
+&lt;select id=&quot;paginationControl&quot; size=&quot;1&quot;&gt;
+&lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
+  &lt;?php $selected = ($page == $this-&gt;current) ? ' selected=&quot;selected&quot;' : ''; ?&gt;
+  &lt;option value=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]);?&gt;&quot;&lt;?= $selected ?&gt;&gt;
+    &lt;?= $page; ?&gt;
+  &lt;/option&gt;
+&lt;?php endforeach; ?&gt;
+&lt;/select&gt;
+&lt;?php endif; ?&gt;
+
+&lt;script type=&quot;text/javascript&quot;
+     src=&quot;http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js&quot;&gt;
+&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+$('paginationControl').observe('change', function() {
+    window.location = this.options[this.selectedIndex].value;
+})
+&lt;/script&gt;</code></pre>
+
+
+<h3 id="listing-of-properties">Listing of properties</h3>
+<p>The following options are available to pagination control view scripts:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>first</td>
+<td>integer</td>
+<td>First page number (typically 1).</td>
+</tr>
+<tr>
+<td>firstItemNumber</td>
+<td>integer</td>
+<td>Absolute number of the first item on this page.</td>
+</tr>
+<tr>
+<td>firstPageInRange</td>
+<td>integer</td>
+<td>First page in the range returned by the scrolling style.</td>
+</tr>
+<tr>
+<td>current</td>
+<td>integer</td>
+<td>Current page number.</td>
+</tr>
+<tr>
+<td>currentItemCount</td>
+<td>integer</td>
+<td>Number of items on this page.</td>
+</tr>
+<tr>
+<td>itemCountPerPage</td>
+<td>integer</td>
+<td>Maximum number of items available to each page.</td>
+</tr>
+<tr>
+<td>last</td>
+<td>integer</td>
+<td>Last page number.</td>
+</tr>
+<tr>
+<td>lastItemNumber</td>
+<td>integer</td>
+<td>Absolute number of the last item on this page.</td>
+</tr>
+<tr>
+<td>lastPageInRange</td>
+<td>integer</td>
+<td>Last page in the range returned by the scrolling style.</td>
+</tr>
+<tr>
+<td>next</td>
+<td>integer</td>
+<td>Next page number.</td>
+</tr>
+<tr>
+<td>pageCount</td>
+<td>integer</td>
+<td>Number of pages.</td>
+</tr>
+<tr>
+<td>pagesInRange</td>
+<td>array</td>
+<td>Array of pages returned by the scrolling style.</td>
+</tr>
+<tr>
+<td>previous</td>
+<td>integer</td>
+<td>Previous page number.</td>
+</tr>
+<tr>
+<td>totalItemCount</td>
+<td>integer</td>
+<td>Total number of items.</td>
+</tr>
+</tbody>
+</table></div>
+
+<hr />
+
+
+<nav>
+  <ul class="pager hidden-print">
+    <li class="previous">
+      <a rel="prev" href="../intro/"><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next">
+      <a rel="next" href="../configuration/">Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav>
+</div>
+        
+    </div>
+    <!-- content:end -->
+
+    <footer class="col-md-12 text-center">
+        <hr>
+        <p>
+        <small>Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a><br></small>
+        </p>
+        <p><small><a href="http://framework.zend.com">Learn more about Zend Framework</a></small></p>
+    </footer>
+
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../js/prism-zf.js"></script>
+
+    <script>var base_url = '..';</script>
+    <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+    <script src="../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zf-components">
+  <div class="zf-components-grid">
+    <div class="zf-logo">
+      <a href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../img/zf-logo-mark.png" alt="Zend Framework" width="250" /></a>
+    </div>
+
+    <div class="component-list"></div>
+
+    <p class="zf-components-rollup"><a href="#">Hide list</a></p>
+  </div>
+</div>
+
+    <script>
+  // Prepare the component list dropdown for display
+  $(function () {
+    var components = $(".zf-components"),
+        componentList = components.find(".component-list"),
+        sidebar = $(".bs-sidebar.affix"),
+        sidebarInitialPos = sidebar.css("position"),
+        hidden,
+        componentToggle = $(".component-toggle"),
+        navbar = $(".navbar-fixed-top"),
+        rollUpLink = $(".zf-components-rollup a");
+
+    // Initial setup on document load
+    components.insertBefore(navbar);
+    $(".zf-logo a").tooltip();
+    componentToggle.tooltip();
+    rollUpLink.attr({ href: "#", alt: "Hide component list" });
+
+    // Cast initial sidebar position value
+    if (undefined === sidebarInitialPos) {
+      sidebarInitialPos = "fixed";
+    }
+
+    // Setup onclick events to toggle list
+    componentToggle.click(toggleComponentList);
+    rollUpLink.click(toggleComponentList);
+
+    // Toggle the component list display
+    function toggleComponentList(event) {
+      event.preventDefault();
+
+      if (hidden === undefined) {
+        // Not loaded yet; load and display.
+        loadComponentList();
+        return;
+      }
+
+      if (hidden) {
+        // Hidden; display.
+        showComponentList();
+        return;
+      }
+
+      // Currently visible; hide
+      hideComponentList();
+    }
+
+    // Show the component list
+    function showComponentList() {
+      navbar.css({position: "relative"});
+      sidebar.css({position: "relative"});
+      components
+        .css({"margin-top": "-" + components.outerHeight() + "px"})
+        .show()
+        .animate({"margin-top": 0}, {
+          complete: function () {
+            componentToggle
+              .data("placement", "top")
+              .attr("data-original-title", "Hide component list");
+            hidden = false;
+          },
+          queue: false
+        });
+    }
+
+    // Hide the component list
+    function hideComponentList() {
+      components.animate({"margin-top": "-" + components.outerHeight() + "px"}, {
+        complete: function () {
+          navbar.css({position: "fixed"});
+          sidebar.css({position: sidebarInitialPos});
+          componentToggle
+            .data("placement", "bottom")
+            .attr("data-original-title", "Show component list");
+          components.hide();
+          hidden = true;
+        },
+        queue: false
+      });
+      sidebar.animate({ top: sidebarInitialTop + "px" }, { queue: false});
+    }
+
+    // Inject a component into the componet list DOM.
+    function injectComponent(index, component) {
+      componentList.append('<div class="component"><h4><a href="' + component.url + '">' + component.name + '</a></h4><p>' + component.description + '</p></div>');
+    }
+
+    // Parse the component list, build the DOM, and display it.
+    function parseComponentList(components) {
+      $.each(components, injectComponent);
+      showComponentList();
+    }
+
+    // Fetch the component list and display it.
+    function loadComponentList () {
+      $.ajax({
+        url: "//zendframework.github.io/zf-mkdoc-theme/scripts/zf-component-list.json",
+        dataType: "text json",
+        success: parseComponentList,
+        error: function (e) {
+          console.log("Error occurred with XHR call", e);
+        }
+      });
+    }
+  });
+</script>
+    </body>
+
+</html>
