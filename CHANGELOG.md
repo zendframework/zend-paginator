@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#20](https://github.com/zendframework/zend-paginator/pull/20) adds
+  and publishes the documentation to https://zendframework.github.io/zend-paginator/
 
 ### Deprecated
 
