@@ -9,7 +9,5 @@ The primary design goals of zend-paginator are as follows:
 - Fetch only the results that need to be displayed.
 - Do not force users to adhere to only one way of displaying data or rendering
   pagination controls.
-- Loosely couple `Zend\Paginator` to other Zend Framework components so that
-  users who wish to use it independently of `Zend\View`, `Zend\Db`, etc. can do
-  so.
-
+- Loosely couple to other Zend Framework components so that users who wish to
+  use it independently of zend-view, zend-Db`, etc. can do so.
