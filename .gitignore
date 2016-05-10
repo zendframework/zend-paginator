@@ -6,12 +6,12 @@
 .*.sw*
 .*.un~
 nbproject
+doc/html/
 tmp/
-+doc/html/
-+zf-mkdoc-theme/
+vendor/
+zf-mkdoc-theme/
 
 clover.xml
 composer.lock
 coveralls-upload.json
 phpunit.xml
-vendor
