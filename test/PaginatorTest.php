@@ -141,6 +141,13 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(11, $paginator->count());
     }
 
+    public function testRepetitiveCallCount()
+    {
+        $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter([]));
+        $this->assertEquals(0, $paginator->count());
+        $this->assertEquals(0, $paginator->count());
+    }
+
     public function testHasCorrectCountOfAllItemsAfterInit()
     {
         $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter(range(1, 101)));
