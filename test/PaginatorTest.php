@@ -147,6 +147,23 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(101, $paginator->getTotalItemCount());
     }
 
+    public function testRepetitiveCallCountResultingZeroDoesNotCauseRepetitiveCallOfCalculatePageCountMethod()
+    {
+        $count = 0;
+
+        $paginator = $this->getMockBuilder(Paginator\Paginator::class)
+            ->setConstructorArgs([new Adapter\ArrayAdapter([])])
+            ->setMethods(['_calculatePageCount'])
+            ->getMock();
+
+        $paginator->expects($this->once())
+            ->method('_calculatePageCount')
+            ->willReturn($count);
+
+        $this->assertEquals($count, $paginator->count());
+        $this->assertEquals($count, $paginator->count());
+    }
+
     public function testLoadsFromConfig()
     {
         Paginator\Paginator::setGlobalConfig($this->config->testing);
