@@ -83,7 +83,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     protected function _getTmpDir()
     {
         $tmpDir = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR . 'zend_paginator';
-        if (!is_dir($tmpDir)) {
+        if (! is_dir($tmpDir)) {
             mkdir($tmpDir);
         }
         $this->cacheDir = $tmpDir;
@@ -95,14 +95,14 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         $dir = new \DirectoryIterator($path);
         foreach ($dir as $file) {
-            if (!$file->isDir()) {
+            if (! $file->isDir()) {
                 unlink($file->getPathname());
-            } elseif (!in_array($file->getFilename(), ['.', '..'])) {
+            } elseif (! in_array($file->getFilename(), ['.', '..'])) {
                 $this->_rmDirRecursive($file->getPathname());
             }
         }
         unset($file, $dir); // required on windows to remove file handle
-        if (!rmdir($path)) {
+        if (! rmdir($path)) {
             throw new Exception\RuntimeException('Unable to remove temporary directory ' . $path
                                 . '; perhaps it has a nested structure?');
         }
@@ -656,7 +656,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         // get back to already cached data
         $this->paginator->setItemCountPerPage(5);
         $pageItems = $this->paginator->getPageItemCache();
-        $expected =[1 => new \ArrayIterator(range(1, 5)),
+        $expected = [1 => new \ArrayIterator(range(1, 5)),
                          2 => new \ArrayIterator(range(6, 10))];
         $this->assertEquals($expected[1], $pageItems[1]);
         $this->assertEquals($expected[2], $pageItems[2]);

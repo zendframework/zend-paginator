@@ -86,7 +86,8 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $this->paginator = new Paginator(new Adapter\Iterator(new \ArrayIterator([])));
         $items = $this->paginator->getCurrentItems();
 
-        foreach ($items as $item);
+        foreach ($items as $item) {
+        }
     }
 
     /**

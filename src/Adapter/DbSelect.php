@@ -74,7 +74,7 @@ class DbSelect implements AdapterInterface
             $adapterOrSqlObject = new Sql($adapterOrSqlObject);
         }
 
-        if (!$adapterOrSqlObject instanceof Sql) {
+        if (! $adapterOrSqlObject instanceof Sql) {
             throw new Exception\InvalidArgumentException(
                 '$adapterOrSqlObject must be an instance of Zend\Db\Adapter\Adapter or Zend\Db\Sql\Sql'
             );
