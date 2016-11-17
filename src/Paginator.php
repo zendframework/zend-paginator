@@ -841,8 +841,10 @@ class Paginator implements Countable, IteratorAggregate
      * @param int $page
      * @return string
      */
+    // @codingStandardsIgnoreStart
     protected function _getCacheId($page = null)
     {
+        // @codingStandardsIgnoreEnd
         if ($page === null) {
             $page = $this->getCurrentPageNumber();
         }
@@ -857,8 +859,10 @@ class Paginator implements Countable, IteratorAggregate
      *
      * @return string
      */
+    // @codingStandardsIgnoreStart
     protected function _getCacheInternalId()
     {
+        // @codingStandardsIgnoreEnd
         return md5(serialize([
             spl_object_hash($this->getAdapter()),
             $this->getItemCountPerPage()
@@ -870,8 +874,10 @@ class Paginator implements Countable, IteratorAggregate
      *
      * @return int
      */
+    // @codingStandardsIgnoreStart
     protected function _calculatePageCount()
     {
+        // @codingStandardsIgnoreEnd
         return (int) ceil($this->getAdapter()->count() / $this->getItemCountPerPage());
     }
 
@@ -881,8 +887,10 @@ class Paginator implements Countable, IteratorAggregate
      * @param  string $scrollingStyle Scrolling style
      * @return \stdClass
      */
+    // @codingStandardsIgnoreStart
     protected function _createPages($scrollingStyle = null)
     {
+        // @codingStandardsIgnoreEnd
         $pageCount         = $this->count();
         $currentPageNumber = $this->getCurrentPageNumber();
 
@@ -930,8 +938,10 @@ class Paginator implements Countable, IteratorAggregate
      * @return ScrollingStyleInterface
      * @throws Exception\InvalidArgumentException
      */
+    // @codingStandardsIgnoreStart
     protected function _loadScrollingStyle($scrollingStyle = null)
     {
+        // @codingStandardsIgnoreEnd
         if ($scrollingStyle === null) {
             $scrollingStyle = static::$defaultScrollingStyle;
         }

@@ -80,8 +80,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->paginator = null;
     }
 
+    // @codingStandardsIgnoreStart
     protected function _getTmpDir()
     {
+        // @codingStandardsIgnoreEnd
         $tmpDir = rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR . 'zend_paginator';
         if (! is_dir($tmpDir)) {
             mkdir($tmpDir);
@@ -91,8 +93,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         return $tmpDir;
     }
 
+    // @codingStandardsIgnoreStart
     protected function _rmDirRecursive($path)
     {
+        // @codingStandardsIgnoreEnd
         $dir = new \DirectoryIterator($path);
         foreach ($dir as $file) {
             if (! $file->isDir()) {
@@ -108,8 +112,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _restorePaginatorDefaults()
     {
+        // @codingStandardsIgnoreEnd
         $this->paginator->setItemCountPerPage(10);
         $this->paginator->setCurrentPageNumber(1);
         $this->paginator->setPageRange(10);
@@ -358,7 +364,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowsExceptionWhenRetrievingNonexistentItemFromLastPage()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'Page 11 does not contain item number 10');
+        $this->setExpectedException(
+            'Zend\Paginator\Exception\InvalidArgumentException',
+            'Page 11 does not contain item number 10'
+        );
         $this->paginator->getItem(10, 11);
     }
 
@@ -761,8 +770,10 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     /**
      * @group ZF-7602
      */
+    // @codingStandardsIgnoreStart
     public function testInvalidDataInConstructor_ThrowsException()
     {
+        // @codingStandardsIgnoreEnd
         $this->setExpectedException('Zend\Paginator\Exception\ExceptionInterface');
 
         new Paginator\Paginator([]);

@@ -18,10 +18,13 @@ use Zend\Paginator\Adapter\ArrayAdapter;
  */
 class SlidingTest extends \PHPUnit_Framework_TestCase
 {
+    // @codingStandardsIgnoreStart
     /**
      * @var \Zend\Paginator\ScrollingStyle\Sliding
      */
     private $_scrollingStyle;
+    // @codingStandardsIgnoreEnd
+
     /**
      * @var \Zend\Paginator\Paginator
      */

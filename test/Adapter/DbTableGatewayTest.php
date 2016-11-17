@@ -112,7 +112,9 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->mockStatement
             ->expects($this->once())
             ->method('setSql')
+            // @codingStandardsIgnoreStart
             ->with($this->equalTo('SELECT "foobar".* FROM "foobar" WHERE foo = bar GROUP BY "foo" ORDER BY "foo" ASC LIMIT limit OFFSET offset'));
+            // @codingStandardsIgnoreEnd
         $this->mockStatement
              ->expects($this->any())
              ->method('execute')
@@ -134,7 +136,9 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
         $this->mockStatement
             ->expects($this->once())
             ->method('setSql')
+            // @codingStandardsIgnoreStart
             ->with($this->equalTo('SELECT "foobar".* FROM "foobar" WHERE foo = bar GROUP BY "foo" HAVING count(foo)>0 ORDER BY "foo" ASC LIMIT limit OFFSET offset'));
+            // @codingStandardsIgnoreEnd
         $this->mockStatement
             ->expects($this->any())
             ->method('execute')
