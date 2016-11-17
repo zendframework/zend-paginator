@@ -32,14 +32,14 @@ abstract class Factory
         if ($items instanceof Traversable) {
             $items = ArrayUtils::iteratorToArray($items);
         }
-        if (!is_array($items)) {
+        if (! is_array($items)) {
             throw new Exception\InvalidArgumentException(
                 'The factory needs an associative array '
                 . 'or a Traversable object as an argument when '
                 . "it's used with one parameter"
             );
         }
-        if (!isset($items['adapter']) && !isset($items['items'])) {
+        if (! isset($items['adapter']) && ! isset($items['items'])) {
             throw new Exception\InvalidArgumentException(
                 'The factory needs an associative array '
                 . 'or a Traversable object with keys '
