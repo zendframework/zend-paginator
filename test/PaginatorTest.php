@@ -876,14 +876,14 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetCacheIdWithSameAdapterAndDifferentAttributes()
     {
-        $adapter = new TestAsset\TestAdapter(array(1,2,3,4));
+        $adapter = new TestAsset\TestAdapter([1, 2, 3, 4]);
         $paginator = new Paginator\Paginator($adapter);
 
         $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
         $reflectionGetCacheInternalId->setAccessible(true);
         $firstOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
 
-        $adapter = new TestAsset\TestAdapter(array(1,2,3,4,5,6));
+        $adapter = new TestAsset\TestAdapter([1, 2, 3, 4, 5, 6]);
         $paginator = new Paginator\Paginator($adapter);
         $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
         $reflectionGetCacheInternalId->setAccessible(true);
@@ -893,14 +893,14 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testGetCacheIdWithInheritedClass()
     {
-        $adapter = new TestAsset\TestAdapter(array(1,2,3,4));
+        $adapter = new TestAsset\TestAdapter([1, 2, 3, 4]);
         $paginator = new Paginator\Paginator($adapter);
 
         $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
         $reflectionGetCacheInternalId->setAccessible(true);
         $firstOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
 
-        $adapter = new TestAsset\TestSimilarAdapter(array(1,2,3,4));
+        $adapter = new TestAsset\TestSimilarAdapter([1, 2, 3, 4]);
         $paginator = new Paginator\Paginator($adapter);
         $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
         $reflectionGetCacheInternalId->setAccessible(true);
