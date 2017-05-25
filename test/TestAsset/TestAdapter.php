@@ -9,8 +9,18 @@
 
 namespace ZendTest\Paginator\TestAsset;
 
-class TestAdapter extends \ArrayObject implements \Zend\Paginator\Adapter\AdapterInterface
+class TestAdapter implements \Zend\Paginator\Adapter\AdapterInterface
 {
+    /**
+     * @var mixed
+     */
+    public $property;
+
+    public function __construct($property = null)
+    {
+        $this->property = $property;
+    }
+
     public function count()
     {
         return 10;
