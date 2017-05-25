@@ -16,6 +16,10 @@ class TestAdapter implements \Zend\Paginator\Adapter\AdapterInterface
      */
     public $property;
 
+    public $test = 100;
+
+    public $test2 = array (1,2,3);
+
     public function __construct($property = null)
     {
         $this->property = $property;
