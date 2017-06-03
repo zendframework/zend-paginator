@@ -88,8 +88,9 @@ class IteratorTest extends TestCase
         $this->paginator = new Paginator(new Adapter\Iterator(new \ArrayIterator([])));
         $items = $this->paginator->getCurrentItems();
 
-        foreach ($items as $item) {
-        }
+        foreach ($items as $item);
+
+        $this->assertEmpty($items);
     }
 
     /**
