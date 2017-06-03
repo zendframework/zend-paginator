@@ -29,15 +29,15 @@ class FactoryTest extends TestCase
 
     protected function setUp()
     {
-        $this->mockSelect = $this->getMock('Zend\Db\Sql\Select');
+        $this->mockSelect = $this->createMock('Zend\Db\Sql\Select');
 
-        $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockStatement = $this->createMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
 
-        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver = $this->createMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
         $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($mockResult));
-        $mockPlatform = $this->getMock('Zend\Db\Adapter\Platform\PlatformInterface');
+        $mockPlatform = $this->createMock('Zend\Db\Adapter\Platform\PlatformInterface');
         $mockPlatform->expects($this->any())->method('getName')->will($this->returnValue('platform'));
 
         $this->mockAdapter = $this->getMockForAbstractClass(

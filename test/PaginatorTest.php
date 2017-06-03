@@ -442,7 +442,7 @@ class PaginatorTest extends TestCase
     public function testGetsItemsByPageHandleDbSelectAdapter()
     {
         $resultSet = new ResultSet;
-        $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $result = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $resultSet->initialize([
             new ArrayObject(['foo' => 'bar']),
             new ArrayObject(['foo' => 'bar']),
@@ -455,26 +455,26 @@ class PaginatorTest extends TestCase
             ->will($this->returnValue([DbSelect::ROW_COUNT_COLUMN_NAME => 3]));
         $result->expects($this->once())->method('current')->will($this->returnValue($resultSet->getDataSource()));
 
-        $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $mockStatement = $this->createMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($result));
-        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver = $this->createMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
-        $mockPlatform = $this->getMock('Zend\Db\Adapter\Platform\PlatformInterface');
+        $mockPlatform = $this->createMock('Zend\Db\Adapter\Platform\PlatformInterface');
         $mockPlatform->expects($this->any())->method('getName')->will($this->returnValue('platform'));
         $mockAdapter = $this->getMockForAbstractClass(
             'Zend\Db\Adapter\Adapter',
             [$mockDriver, $mockPlatform]
         );
-        $mockSql = $this->getMock(
-            'Zend\Db\Sql\Sql',
-            ['prepareStatementForSqlObject', 'execute'],
-            [$mockAdapter]
-        );
+        $mockSql = $this->getMockBuilder('Zend\Db\Sql\Sql')
+            ->setMethods(['prepareStatementForSqlObject', 'execute'])
+            ->setConstructorArgs([$mockAdapter])
+            ->getMock();
+
         $mockSql->expects($this->any())
             ->method('prepareStatementForSqlObject')
             ->with($this->isInstanceOf('Zend\Db\Sql\Select'))
             ->will($this->returnValue($mockStatement));
-        $mockSelect = $this->getMock('Zend\Db\Sql\Select');
+        $mockSelect = $this->createMock('Zend\Db\Sql\Select');
 
         $dbSelect = new DbSelect($mockSelect, $mockSql);
         $this->assertInstanceOf('ArrayIterator', $resultSet->getDataSource());

@@ -38,22 +38,27 @@ class DbSelectTest extends TestCase
 
     public function setUp()
     {
-        $this->mockResult    = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
-        $this->mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $this->mockResult    = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $this->mockStatement = $this->createMock('Zend\Db\Adapter\Driver\StatementInterface');
 
         $this->mockStatement->expects($this->any())->method('execute')->will($this->returnValue($this->mockResult));
 
-        $mockDriver   = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
-        $mockPlatform = $this->getMock('Zend\Db\Adapter\Platform\PlatformInterface');
+        $mockDriver   = $this->createMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockPlatform = $this->createMock('Zend\Db\Adapter\Platform\PlatformInterface');
 
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($this->mockStatement));
         $mockPlatform->expects($this->any())->method('getName')->will($this->returnValue('platform'));
 
-        $this->mockSql = $this->getMock(
-            'Zend\Db\Sql\Sql',
-            ['prepareStatementForSqlObject', 'execute'],
-            [$this->getMockForAbstractClass('Zend\Db\Adapter\Adapter', [$mockDriver, $mockPlatform])]
-        );
+        $this->mockSql = $this->getMockBuilder('Zend\Db\Sql\Sql')
+            ->setMethods(['prepareStatementForSqlObject', 'execute'])
+            ->setConstructorArgs(
+                [
+                    $this->getMockForAbstractClass(
+                        'Zend\Db\Adapter\Adapter',
+                        [$mockDriver, $mockPlatform]
+                    )
+                ]
+            )->getMock();
 
         $this
             ->mockSql
@@ -62,8 +67,8 @@ class DbSelectTest extends TestCase
             ->with($this->isInstanceOf('Zend\Db\Sql\Select'))
             ->will($this->returnValue($this->mockStatement));
 
-        $this->mockSelect      = $this->getMock('Zend\Db\Sql\Select');
-        $this->mockSelectCount = $this->getMock('Zend\Db\Sql\Select');
+        $this->mockSelect      = $this->createMock('Zend\Db\Sql\Select');
+        $this->mockSelectCount = $this->createMock('Zend\Db\Sql\Select');
         $this->dbSelect        = new DbSelect($this->mockSelect, $this->mockSql);
     }
 
