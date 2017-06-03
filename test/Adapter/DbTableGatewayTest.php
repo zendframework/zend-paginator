@@ -31,8 +31,8 @@ class DbTableGatewayTest extends TestCase
 
     public function setup()
     {
-        $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
-        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockStatement = $this->createMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $mockDriver = $this->createMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())
                    ->method('createStatement')
                    ->will($this->returnValue($mockStatement));
@@ -59,7 +59,7 @@ class DbTableGatewayTest extends TestCase
     {
         $this->dbTableGateway = new DbTableGateway($this->mockTableGateway);
 
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $this->mockStatement
              ->expects($this->any())
              ->method('execute')
@@ -73,7 +73,7 @@ class DbTableGatewayTest extends TestCase
     {
         $this->dbTableGateway = new DbTableGateway($this->mockTableGateway);
 
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $mockResult->expects($this->any())
                    ->method('current')
                    ->will($this->returnValue([DbSelect::ROW_COUNT_COLUMN_NAME => 10]));
@@ -92,7 +92,7 @@ class DbTableGatewayTest extends TestCase
         $order = "foo";
         $this->dbTableGateway = new DbTableGateway($this->mockTableGateway, $where, $order);
 
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $this->mockStatement
              ->expects($this->any())
              ->method('execute')
@@ -109,7 +109,7 @@ class DbTableGatewayTest extends TestCase
         $group = "foo";
         $this->dbTableGateway = new DbTableGateway($this->mockTableGateway, $where, $order, $group);
 
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $this->mockStatement
             ->expects($this->once())
             ->method('setSql')
@@ -133,7 +133,7 @@ class DbTableGatewayTest extends TestCase
         $having = "count(foo)>0";
         $this->dbTableGateway = new DbTableGateway($this->mockTableGateway, $where, $order, $group, $having);
 
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $this->mockStatement
             ->expects($this->once())
             ->method('setSql')
