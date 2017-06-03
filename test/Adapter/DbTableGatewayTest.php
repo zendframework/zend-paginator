@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Db\Adapter\Platform\Sql92;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Adapter\DbTableGateway;
@@ -17,7 +18,7 @@ use Zend\Paginator\Adapter\DbTableGateway;
  * @group Zend_Paginator
  * @covers  Zend\Paginator\Adapter\DbTableGateway<extended>
  */
-class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
+class DbTableGatewayTest extends TestCase
 {
     /** @var \PHPUnit_Framework_MockObject_MockObject */
     protected $mockStatement;

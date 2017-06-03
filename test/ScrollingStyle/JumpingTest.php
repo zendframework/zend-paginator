@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator\ScrollingStyle;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 
@@ -16,7 +17,7 @@ use Zend\Paginator\Adapter\ArrayAdapter;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\ScrollingStyle\Jumping<extended>
  */
-class JumpingTest extends \PHPUnit_Framework_TestCase
+class JumpingTest extends TestCase
 {
     /**
      * @var \Zend\Paginator\ScrollingStyle\Jumping

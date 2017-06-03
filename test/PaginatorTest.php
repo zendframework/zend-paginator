@@ -11,6 +11,7 @@ namespace ZendTest\Paginator;
 
 use ArrayIterator;
 use ArrayObject;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use stdClass;
 use Zend\Cache\Storage\StorageInterface;
@@ -32,7 +33,7 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Paginator<extended>
  */
-class PaginatorTest extends \PHPUnit_Framework_TestCase
+class PaginatorTest extends TestCase
 {
     /**
      * Paginator instance

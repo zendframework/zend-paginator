@@ -16,7 +16,7 @@ use Zend\Paginator\Adapter\ArrayAdapter;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\ScrollingStyle\Sliding<extended>
  */
-class SlidingTest extends \PHPUnit_Framework_TestCase
+class SlidingTest extends \PHPUnit\Framework\TestCase
 {
     // @codingStandardsIgnoreStart
     /**

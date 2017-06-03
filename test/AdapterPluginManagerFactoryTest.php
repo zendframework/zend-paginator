@@ -8,7 +8,7 @@
 namespace ZendTest\Paginator;
 
 use Interop\Container\ContainerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Paginator\AdapterPluginManager;
 use Zend\Paginator\AdapterPluginManagerFactory;
