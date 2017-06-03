@@ -75,10 +75,8 @@ class IteratorTest extends TestCase
     {
         $iterator = new \LimitIterator(new \ArrayIterator(range(1, 101)));
 
-        $this->setExpectedException(
-            'Zend\Paginator\Adapter\Exception\InvalidArgumentException',
-            'Iterator must implement Countable'
-        );
+        $this->expectException('Zend\Paginator\Adapter\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Iterator must implement Countable');
         new Adapter\Iterator($iterator);
     }
 

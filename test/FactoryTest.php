@@ -101,7 +101,7 @@ class FactoryTest extends TestCase
             [1, 2, 3],
             'array',
         ];
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
         $paginator = Paginator\Factory::factory($datas);
     }
 }
