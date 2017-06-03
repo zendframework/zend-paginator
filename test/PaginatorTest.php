@@ -864,6 +864,14 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $outputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
 
         $this->assertEquals($outputGetCacheId, 'Zend_Paginator_1_' . $outputGetCacheInternalId);
+
+        $adapter = new TestAsset\TestAdapter;
+        $paginator = new Paginator\Paginator($adapter);
+        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
+        $reflectionGetCacheInternalId->setAccessible(true);
+        $outputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
+
+        $this->assertEquals($outputGetCacheId, 'Zend_Paginator_1_' . $outputGetCacheInternalId);
     }
 
     /**
