@@ -353,13 +353,15 @@ class PaginatorTest extends TestCase
     {
         $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter([]));
 
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'Page 1 does not exist');
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Page 1 does not exist');
         $paginator->getItem(1);
     }
 
     public function testThrowsExceptionWhenRetrievingNonexistentItemFromLastPage()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'Page 11 does not contain item number 10');
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Page 11 does not contain item number 10');
         $this->paginator->getItem(10, 11);
     }
 
@@ -510,7 +512,8 @@ class PaginatorTest extends TestCase
 
     public function testRenders()
     {
-        $this->setExpectedException('Zend\\View\\Exception\\ExceptionInterface', 'view partial');
+        $this->expectException('Zend\\View\\Exception\\ExceptionInterface');
+        $this->expectExceptionMessage('view partial');
         $this->paginator->render(new View\Renderer\PhpRenderer());
     }
 
@@ -764,7 +767,7 @@ class PaginatorTest extends TestCase
      */
     public function testInvalidDataInConstructor_ThrowsException()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\ExceptionInterface');
+        $this->expectException('Zend\Paginator\Exception\ExceptionInterface');
 
         new Paginator\Paginator([]);
     }
@@ -791,18 +794,16 @@ class PaginatorTest extends TestCase
 
     public function testSetGlobalConfigThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
-            'setGlobalConfig expects an array or Traversable'
-        );
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('setGlobalConfig expects an array or Traversable');
 
         $this->paginator->setGlobalConfig('not array');
     }
 
     public function testSetScrollingStylePluginManagerWithStringThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Unable to locate scrolling style plugin manager with class "invalid adapter"; class not found'
         );
 
@@ -811,8 +812,8 @@ class PaginatorTest extends TestCase
 
     public function testSetScrollingStylePluginManagerWithAdapterThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Pagination scrolling-style manager must extend ScrollingStylePluginManager; received "stdClass"'
         );
 
@@ -828,8 +829,8 @@ class PaginatorTest extends TestCase
         $reflection = new ReflectionMethod($paginator, '_loadScrollingStyle');
         $reflection->setAccessible(true);
 
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Scrolling style must be a class ' .
                 'name or object implementing Zend\Paginator\ScrollingStyle\ScrollingStyleInterface'
         );
@@ -844,8 +845,8 @@ class PaginatorTest extends TestCase
         $reflection = new ReflectionMethod($paginator, '_loadScrollingStyle');
         $reflection->setAccessible(true);
 
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Scrolling style must implement Zend\Paginator\ScrollingStyle\ScrollingStyleInterface'
         );
 
