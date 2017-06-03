@@ -92,7 +92,7 @@ Paginator::setCache($cache);
 
 As long as the `Paginator` class has been seeded with a cache storage object,
 the data any instance generates will be cached. If you want to disable caching, call
-`setCacheEnable()` with a boolean `false` on a concrete instance:
+`setCacheEnabled()` with a boolean `false` on a concrete instance:
 
 ```php
 use Zend\Paginator\Paginator;
@@ -101,7 +101,7 @@ use Zend\Paginator\Paginator;
 Paginator::setCache($cache);
 
 // ... later on the script:
-$paginator->setCacheEnable(false);
+$paginator->setCacheEnabled(false);
 // cache is now disabled for this instance.
 ```
 
