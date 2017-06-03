@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-paginator",
-    "description": " ",
+    "description": "zend-paginator is a flexible component for paginating collections of data and presenting that data to users.",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
