@@ -1,12 +1,18 @@
 {
     "name": "zendframework/zend-paginator",
-    "description": " ",
+    "description": "zend-paginator is a flexible component for paginating collections of data and presenting that data to users.",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
         "paginator"
     ],
     "homepage": "https://github.com/zendframework/zend-paginator",
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-paginator",
+        "forum": "https://discourse.zendframework.com",
+        "issues": "https://github.com/zendframework/zend-paginator/issues",
+        "source": "https://github.com/zendframework/zend-paginator"
+    },
     "autoload": {
         "psr-4": {
             "Zend\\Paginator\\": "src/"
