@@ -7,6 +7,12 @@
         "paginator"
     ],
     "homepage": "https://github.com/zendframework/zend-paginator",
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-paginator",
+        "forum": "https://discourse.zendframework.com",
+        "issues": "https://github.com/zendframework/zend-paginator/issues",
+        "source": "https://github.com/zendframework/zend-paginator"
+    },
     "autoload": {
         "psr-4": {
             "Zend\\Paginator\\": "src/"
