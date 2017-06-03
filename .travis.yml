@@ -24,12 +24,6 @@ env:
 
 matrix:
   include:
-    - php: 5.5
-      env:
-        - EXECUTE_CS_CHECK=true
-    - php: 5.5
-      env:
-        - SERVICE_MANAGER_VERSION="^2.7.5"
     - php: 5.6
       env:
         - EXECUTE_TEST_COVERALLS=true
