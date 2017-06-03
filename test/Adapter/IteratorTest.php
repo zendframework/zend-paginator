@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter;
 use Zend\Paginator\Paginator;
 
@@ -16,7 +17,7 @@ use Zend\Paginator\Paginator;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Adapter\Iterator<extended>
  */
-class IteratorTest extends \PHPUnit_Framework_TestCase
+class IteratorTest extends TestCase
 {
     /**
      * @var \Zend\Paginator\Adapter\Iterator

@@ -11,6 +11,7 @@ namespace ZendTest\Paginator;
 
 use ArrayIterator;
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\Adapter\Driver as DbDriver;
 use Zend\Db\Adapter\Platform;
@@ -23,7 +24,7 @@ use Zend\Paginator\AdapterPluginManager;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\AdapterPluginManager<extended>
  */
-class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
+class AdapterPluginManagerTest extends TestCase
 {
     protected $adapterPluginManager;
 

@@ -9,13 +9,14 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter\DbSelect;
 
 /**
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Adapter\DbSelect<extended>
  */
-class DbSelectTest extends \PHPUnit_Framework_TestCase
+class DbSelectTest extends TestCase
 {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Zend\Db\Sql\Select */
     protected $mockSelect;

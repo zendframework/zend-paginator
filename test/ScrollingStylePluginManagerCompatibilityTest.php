@@ -9,7 +9,7 @@
 
 namespace ZendTest\Paginator;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\ScrollingStylePluginManager;
 use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;
 use Zend\Paginator\Exception\InvalidArgumentException;

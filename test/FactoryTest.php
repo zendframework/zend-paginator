@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator;
 use Zend\Paginator\Adapter;
 use ZendTest\Paginator\TestAsset\TestArrayAggregate;
@@ -17,7 +18,7 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Factory<extended>
  */
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

@@ -9,7 +9,7 @@
 
 namespace ZendTest\Paginator\Adapter;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter\Callback;
 
 /**
