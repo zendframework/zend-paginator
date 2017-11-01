@@ -11,6 +11,7 @@ namespace ZendTest\Paginator;
 
 use ArrayIterator;
 use ArrayObject;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use stdClass;
 use Zend\Cache\Storage\StorageInterface;
@@ -32,7 +33,7 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Paginator<extended>
  */
-class PaginatorTest extends \PHPUnit_Framework_TestCase
+class PaginatorTest extends TestCase
 {
     /**
      * Paginator instance
@@ -352,13 +353,15 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     {
         $paginator = new Paginator\Paginator(new Adapter\ArrayAdapter([]));
 
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'Page 1 does not exist');
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Page 1 does not exist');
         $paginator->getItem(1);
     }
 
     public function testThrowsExceptionWhenRetrievingNonexistentItemFromLastPage()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException', 'Page 11 does not contain item number 10');
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Page 11 does not contain item number 10');
         $this->paginator->getItem(10, 11);
     }
 
@@ -441,7 +444,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
     public function testGetsItemsByPageHandleDbSelectAdapter()
     {
         $resultSet = new ResultSet;
-        $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $result = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
         $resultSet->initialize([
             new ArrayObject(['foo' => 'bar']),
             new ArrayObject(['foo' => 'bar']),
@@ -454,26 +457,26 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue([DbSelect::ROW_COUNT_COLUMN_NAME => 3]));
         $result->expects($this->once())->method('current')->will($this->returnValue($resultSet->getDataSource()));
 
-        $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $mockStatement = $this->createMock('Zend\Db\Adapter\Driver\StatementInterface');
         $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($result));
-        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver = $this->createMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
-        $mockPlatform = $this->getMock('Zend\Db\Adapter\Platform\PlatformInterface');
+        $mockPlatform = $this->createMock('Zend\Db\Adapter\Platform\PlatformInterface');
         $mockPlatform->expects($this->any())->method('getName')->will($this->returnValue('platform'));
         $mockAdapter = $this->getMockForAbstractClass(
             'Zend\Db\Adapter\Adapter',
             [$mockDriver, $mockPlatform]
         );
-        $mockSql = $this->getMock(
-            'Zend\Db\Sql\Sql',
-            ['prepareStatementForSqlObject', 'execute'],
-            [$mockAdapter]
-        );
+        $mockSql = $this->getMockBuilder('Zend\Db\Sql\Sql')
+            ->setMethods(['prepareStatementForSqlObject', 'execute'])
+            ->setConstructorArgs([$mockAdapter])
+            ->getMock();
+
         $mockSql->expects($this->any())
             ->method('prepareStatementForSqlObject')
             ->with($this->isInstanceOf('Zend\Db\Sql\Select'))
             ->will($this->returnValue($mockStatement));
-        $mockSelect = $this->getMock('Zend\Db\Sql\Select');
+        $mockSelect = $this->createMock('Zend\Db\Sql\Select');
 
         $dbSelect = new DbSelect($mockSelect, $mockSql);
         $this->assertInstanceOf('ArrayIterator', $resultSet->getDataSource());
@@ -509,7 +512,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testRenders()
     {
-        $this->setExpectedException('Zend\\View\\Exception\\ExceptionInterface', 'view partial');
+        $this->expectException('Zend\\View\\Exception\\ExceptionInterface');
+        $this->expectExceptionMessage('view partial');
         $this->paginator->render(new View\Renderer\PhpRenderer());
     }
 
@@ -763,7 +767,7 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidDataInConstructor_ThrowsException()
     {
-        $this->setExpectedException('Zend\Paginator\Exception\ExceptionInterface');
+        $this->expectException('Zend\Paginator\Exception\ExceptionInterface');
 
         new Paginator\Paginator([]);
     }
@@ -790,18 +794,16 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGlobalConfigThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
-            'setGlobalConfig expects an array or Traversable'
-        );
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('setGlobalConfig expects an array or Traversable');
 
         $this->paginator->setGlobalConfig('not array');
     }
 
     public function testSetScrollingStylePluginManagerWithStringThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Unable to locate scrolling style plugin manager with class "invalid adapter"; class not found'
         );
 
@@ -810,8 +812,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
 
     public function testSetScrollingStylePluginManagerWithAdapterThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Pagination scrolling-style manager must extend ScrollingStylePluginManager; received "stdClass"'
         );
 
@@ -827,8 +829,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $reflection = new ReflectionMethod($paginator, '_loadScrollingStyle');
         $reflection->setAccessible(true);
 
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Scrolling style must be a class ' .
                 'name or object implementing Zend\Paginator\ScrollingStyle\ScrollingStyleInterface'
         );
@@ -843,8 +845,8 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $reflection = new ReflectionMethod($paginator, '_loadScrollingStyle');
         $reflection->setAccessible(true);
 
-        $this->setExpectedException(
-            'Zend\Paginator\Exception\InvalidArgumentException',
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage(
             'Scrolling style must implement Zend\Paginator\ScrollingStyle\ScrollingStyleInterface'
         );
 

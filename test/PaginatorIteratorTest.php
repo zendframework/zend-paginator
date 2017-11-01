@@ -9,11 +9,12 @@
 
 namespace ZendTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\PaginatorIterator;
 
-class PaginatorIteratorTest extends \PHPUnit_Framework_TestCase
+class PaginatorIteratorTest extends TestCase
 {
     public function testIteratorFlattensPaginator()
     {
