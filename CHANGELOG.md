@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Added
 
 - [#20](https://github.com/zendframework/zend-paginator/pull/20) adds
-  and publishes the documentation to https://zendframework.github.io/zend-paginator/
+  and publishes the documentation to https://docs.zendframework.com/zend-paginator/
 
 - [#38](https://github.com/zendframework/zend-paginator/pull/38) adds support
   for PHP 7.1.
