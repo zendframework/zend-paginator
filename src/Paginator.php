@@ -863,10 +863,11 @@ class Paginator implements Countable, IteratorAggregate
     protected function _getCacheInternalId()
     {
         // @codingStandardsIgnoreEnd
-        return md5(serialize([
-            spl_object_hash($this->getAdapter()),
-            $this->getItemCountPerPage()
-        ]));
+        return md5(
+            get_class($this->getAdapter())
+            . json_encode($this->getAdapter())
+            . $this->getItemCountPerPage()
+        );
     }
 
     /**

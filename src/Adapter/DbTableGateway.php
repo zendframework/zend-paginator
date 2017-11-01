@@ -24,8 +24,13 @@ class DbTableGateway extends DbSelect
      * @param null|string|array                 $group
      * @param null|Having|\Closure|string|array $having
      */
-    public function __construct(AbstractTableGateway $tableGateway, $where = null, $order = null, $group = null, $having = null)
-    {
+    public function __construct(
+        AbstractTableGateway $tableGateway,
+        $where = null,
+        $order = null,
+        $group = null,
+        $having = null
+    ) {
         $sql    = $tableGateway->getSql();
         $select = $sql->select();
         if ($where) {
