@@ -339,7 +339,7 @@ class Paginator implements Countable, IteratorAggregate
      */
     public function count()
     {
-        if (! $this->pageCount) {
+        if ($this->pageCount === null) {
             $this->pageCount = $this->_calculatePageCount();
         }
 
