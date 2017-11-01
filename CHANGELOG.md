@@ -40,6 +40,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#33](https://github.com/zendframework/zend-paginator/pull/33) fixes how cache
+  identifiers are generated to work propertly with non-serializable pagination
+  adapters.
+
 - [#26](https://github.com/zendframework/zend-paginator/pull/26) fixes an issue
   in `Paginator::count()` whereby it would re-count when zero pages had been
   previously detected.
