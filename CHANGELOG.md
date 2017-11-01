@@ -19,7 +19,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#32](https://github.com/zendframework/zend-paginator/pull/32) updates the
+  `DbTableGateway` adapter's constructor to allow any
+  `Zend\Db\TableGateway\AbstractTableGateway` implementation, and not just
+  `Zend\Db\TableGateway\TableGateway` instances. This is a parameter widening,
+  which poses no backwards compatibility break, but does provide users the
+  ability to consume their own `AbstractTableGateway` extensions.
 
 ### Deprecated
 
