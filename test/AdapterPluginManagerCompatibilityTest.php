@@ -9,7 +9,7 @@
 
 namespace ZendTest\Paginator;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use Zend\Paginator\AdapterPluginManager;
 use Zend\Paginator\Adapter\AdapterInterface;

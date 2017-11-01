@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator;
 use Zend\Paginator\Adapter;
 use ZendTest\Paginator\TestAsset\TestArrayAggregate;
@@ -17,7 +18,7 @@ use ZendTest\Paginator\TestAsset\TestArrayAggregate;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Factory<extended>
  */
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -28,15 +29,15 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->mockSelect = $this->getMock('Zend\Db\Sql\Select');
+        $this->mockSelect = $this->createMock('Zend\Db\Sql\Select');
 
-        $mockStatement = $this->getMock('Zend\Db\Adapter\Driver\StatementInterface');
-        $mockResult = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
+        $mockStatement = $this->createMock('Zend\Db\Adapter\Driver\StatementInterface');
+        $mockResult = $this->createMock('Zend\Db\Adapter\Driver\ResultInterface');
 
-        $mockDriver = $this->getMock('Zend\Db\Adapter\Driver\DriverInterface');
+        $mockDriver = $this->createMock('Zend\Db\Adapter\Driver\DriverInterface');
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
         $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($mockResult));
-        $mockPlatform = $this->getMock('Zend\Db\Adapter\Platform\PlatformInterface');
+        $mockPlatform = $this->createMock('Zend\Db\Adapter\Platform\PlatformInterface');
         $mockPlatform->expects($this->any())->method('getName')->will($this->returnValue('platform'));
 
         $this->mockAdapter = $this->getMockForAbstractClass(
@@ -100,7 +101,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             [1, 2, 3],
             'array',
         ];
-        $this->setExpectedException('Zend\Paginator\Exception\InvalidArgumentException');
+        $this->expectException('Zend\Paginator\Exception\InvalidArgumentException');
         $paginator = Paginator\Factory::factory($datas);
     }
 }

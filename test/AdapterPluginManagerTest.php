@@ -11,6 +11,7 @@ namespace ZendTest\Paginator;
 
 use ArrayIterator;
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\Adapter\Driver as DbDriver;
 use Zend\Db\Adapter\Platform;
@@ -23,8 +24,11 @@ use Zend\Paginator\AdapterPluginManager;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\AdapterPluginManager<extended>
  */
-class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
+class AdapterPluginManagerTest extends TestCase
 {
+    /**
+     * @var AdapterPluginManager
+     */
     protected $adapterPluginManager;
 
     /**
@@ -39,15 +43,15 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->adapterPluginManager = new AdapterPluginManager(
             $this->getMockBuilder(ContainerInterface::class)->getMock()
         );
-        $this->mockSelect = $this->getMock(Select::class);
+        $this->mockSelect = $this->createMock(Select::class);
 
-        $mockStatement = $this->getMock(DbDriver\StatementInterface::class);
-        $mockResult = $this->getMock(DbDriver\ResultInterface::class);
+        $mockStatement = $this->createMock(DbDriver\StatementInterface::class);
+        $mockResult = $this->createMock(DbDriver\ResultInterface::class);
 
-        $mockDriver = $this->getMock(DbDriver\DriverInterface::class);
+        $mockDriver = $this->createMock(DbDriver\DriverInterface::class);
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
         $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($mockResult));
-        $mockPlatform = $this->getMock(Platform\PlatformInterface::class);
+        $mockPlatform = $this->createMock(Platform\PlatformInterface::class);
         $mockPlatform->expects($this->any())->method('getName')->will($this->returnValue('platform'));
 
         $this->mockAdapter = $this->getMockForAbstractClass(
@@ -68,8 +72,8 @@ class AdapterPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Adapter\NullFill::class, $plugin);
 
         // Test dbtablegateway
-        $mockStatement = $this->getMock(DbDriver\StatementInterface::class);
-        $mockDriver = $this->getMock(DbDriver\DriverInterface::class);
+        $mockStatement = $this->createMock(DbDriver\StatementInterface::class);
+        $mockDriver = $this->createMock(DbDriver\DriverInterface::class);
         $mockDriver->expects($this->any())
                    ->method('createStatement')
                    ->will($this->returnValue($mockStatement));

@@ -66,7 +66,7 @@ class SerializableLimitIterator extends LimitIterator implements Serializable, A
     {
         $dataArr = unserialize($data);
         $this->__construct($dataArr['it'], $dataArr['offset'], $dataArr['count']);
-        $this->seek($dataArr['pos']+$dataArr['offset']);
+        $this->seek($dataArr['pos'] + $dataArr['offset']);
     }
 
     /**

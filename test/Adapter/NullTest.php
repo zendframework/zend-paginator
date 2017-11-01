@@ -9,12 +9,13 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter;
 
 /**
  * @group      Zend_Paginator
  */
-class NullTest extends \PHPUnit_Framework_TestCase
+class NullTest extends TestCase
 {
     public function setUp()
     {
