@@ -8,7 +8,7 @@
 namespace ZendTest\Paginator;
 
 use Interop\Container\ContainerInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\ScrollingStylePluginManager;
 use Zend\Paginator\ScrollingStylePluginManagerFactory;
 use Zend\Paginator\ScrollingStyle\ScrollingStyleInterface;

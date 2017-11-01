@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter;
 use Zend\Paginator;
 
@@ -16,7 +17,7 @@ use Zend\Paginator;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Adapter\NullFill<extended>
  */
-class NullFillTest extends \PHPUnit_Framework_TestCase
+class NullFillTest extends TestCase
 {
     /**
      * @var \Zend\Paginator\Adapter\NullFill

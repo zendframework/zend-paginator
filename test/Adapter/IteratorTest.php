@@ -9,6 +9,7 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter;
 use Zend\Paginator\Paginator;
 
@@ -16,7 +17,7 @@ use Zend\Paginator\Paginator;
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Adapter\Iterator<extended>
  */
-class IteratorTest extends \PHPUnit_Framework_TestCase
+class IteratorTest extends TestCase
 {
     /**
      * @var \Zend\Paginator\Adapter\Iterator
@@ -74,7 +75,8 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = new \LimitIterator(new \ArrayIterator(range(1, 101)));
 
-        $this->setExpectedException('Zend\Paginator\Adapter\Exception\InvalidArgumentException', 'Iterator must implement Countable');
+        $this->expectException('Zend\Paginator\Adapter\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Iterator must implement Countable');
         new Adapter\Iterator($iterator);
     }
 
@@ -86,7 +88,10 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $this->paginator = new Paginator(new Adapter\Iterator(new \ArrayIterator([])));
         $items = $this->paginator->getCurrentItems();
 
-        foreach ($items as $item);
+        foreach ($items as $item) {
+        }
+
+        $this->assertEmpty($items);
     }
 
     /**
@@ -97,7 +102,11 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $items = $this->adapter->getItems(0, 1);
         $innerIterator = $items->getInnerIterator();
         $items = unserialize(serialize($items));
-        $this->assertEquals($items->getInnerIterator(), $innerIterator, 'getItems has to be serializable to use caching');
+        $this->assertEquals(
+            $items->getInnerIterator(),
+            $innerIterator,
+            'getItems has to be serializable to use caching'
+        );
     }
 
     /**

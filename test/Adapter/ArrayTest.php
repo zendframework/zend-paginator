@@ -9,13 +9,14 @@
 
 namespace ZendTest\Paginator\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator\Adapter;
 
 /**
  * @group      Zend_Paginator
  * @covers  Zend\Paginator\Adapter\ArrayAdapter<extended>
  */
-class ArrayTest extends \PHPUnit_Framework_TestCase
+class ArrayTest extends TestCase
 {
     /**
      * @var Adapter\ArrayAdapter
