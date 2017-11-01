@@ -6,34 +6,32 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 2.7.1 - TBD
-
-### Added
-
 - [#20](https://github.com/zendframework/zend-paginator/pull/20) adds
   and publishes the documentation to https://zendframework.github.io/zend-paginator/
 
+- [#38](https://github.com/zendframework/zend-paginator/pull/38) adds support
+  for PHP 7.1.
+
+- [#38](https://github.com/zendframework/zend-paginator/pull/38) adds
+  support for PHP 7.2. This is dependent on fixes in the upstream zend-db
+  package if you are using the various database-backed paginators; other
+  paginators work on 7.2 at this time.
+
+### Changed
+
+- Nothing.
+
 ### Deprecated
 
 - Nothing.
 
 ### Removed
 
-- Nothing.
+- [#35](https://github.com/zendframework/zend-paginator/pull/35) removes support
+  for PHP 5.5.
+
+- [#35](https://github.com/zendframework/zend-paginator/pull/35) removes support
+  for HHVM.
 
 ### Fixed
 
