@@ -74,7 +74,10 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
     {
         $iterator = new \LimitIterator(new \ArrayIterator(range(1, 101)));
 
-        $this->setExpectedException('Zend\Paginator\Adapter\Exception\InvalidArgumentException', 'Iterator must implement Countable');
+        $this->setExpectedException(
+            'Zend\Paginator\Adapter\Exception\InvalidArgumentException',
+            'Iterator must implement Countable'
+        );
         new Adapter\Iterator($iterator);
     }
 
@@ -86,7 +89,8 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $this->paginator = new Paginator(new Adapter\Iterator(new \ArrayIterator([])));
         $items = $this->paginator->getCurrentItems();
 
-        foreach ($items as $item);
+        foreach ($items as $item) {
+        }
     }
 
     /**
@@ -97,7 +101,11 @@ class IteratorTest extends \PHPUnit_Framework_TestCase
         $items = $this->adapter->getItems(0, 1);
         $innerIterator = $items->getInnerIterator();
         $items = unserialize(serialize($items));
-        $this->assertEquals($items->getInnerIterator(), $innerIterator, 'getItems has to be serializable to use caching');
+        $this->assertEquals(
+            $items->getInnerIterator(),
+            $innerIterator,
+            'getItems has to be serializable to use caching'
+        );
     }
 
     /**
