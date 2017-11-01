@@ -257,7 +257,7 @@ your view script by echoing the paginator instance:
 > For example, with Smarty you might do the following:
 >
 > ```php
-> $smarty-assign('pages', $paginator-getPages());
+> $smarty-assign('pages', $paginator->getPages());
 > ```
 >
 > You could then access paginator values from a template like so:
