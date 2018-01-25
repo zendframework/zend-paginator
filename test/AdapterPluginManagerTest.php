@@ -16,6 +16,7 @@ use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\Adapter\Driver as DbDriver;
 use Zend\Db\Adapter\Platform;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Paginator\Adapter;
 use Zend\Paginator\AdapterPluginManager;
@@ -108,5 +109,34 @@ class AdapterPluginManagerTest extends TestCase
 
         $plugin = $this->adapterPluginManager->get('callback', [$itemsCallback, $countCallback]);
         $this->assertInstanceOf(Adapter\Callback::class, $plugin);
+    }
+
+    public function testFactoryCreatedDbSelectCanUseCustomCountSelect()
+    {
+        $mockSelect      = $this->createMock(Select::class);
+        $mockSelectCount = $this->createMock(Select::class);
+
+        $mockResult    = $this->createMock(DbDriver\ResultInterface::class);
+        $mockStatement = $this->createMock(DbDriver\StatementInterface::class);
+
+        $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($mockResult));
+
+        $mockSql = $this->getMockBuilder(Sql::class)
+            ->setMethods(['prepareStatementForSqlObject'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mockSql->expects($this->any())->method('prepareStatementForSqlObject')
+            ->with($mockSelectCount)->will($this->returnValue($mockStatement));
+
+        $mockResult->expects($this->any())->method('current')
+            ->will($this->returnValue([Adapter\DbSelect::ROW_COUNT_COLUMN_NAME => 5]));
+
+        $plugin = $this->adapterPluginManager->get(
+            'dbselect',
+            [$mockSelect, $mockSql, null, $mockSelectCount]
+        );
+        $count = $plugin->count();
+        $this->assertEquals(5, $count);
     }
 }
