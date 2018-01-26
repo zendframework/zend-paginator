@@ -103,8 +103,9 @@ doing so is stillmany times faster than fetching an entire result set and using
 The database adapter will try and build the most efficient query that will
 execute on pretty much any modern database. However, depending on your database
 or even your own schema setup, there might be more efficient ways to get a
-rowcount. For this scenario, you can extend the provided `DbSelect` adapter and
-implement a custom `count()` method.
+rowcount. For this scenario, you can pass an additional `Zend\Db\Sql\Select`
+object as the fourth constructor argument to the `DbSelect` adapter to implement
+a custom count query.
 
 For example, if you keep track of the count of blog posts in a separate table,
 you could achieve a faster count query with the following setup:
@@ -114,30 +115,35 @@ use Zend\Db\Sql\Select;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
-class MyDbSelect extends DbSelect
-{
-    public function count()
-    {
-        if ($this->rowCount) {
-            return $this->rowCount;
-        }
+$countQuery = new Select();
+$countQuery
+    ->from('item_counts')
+    ->columns([ DbSelect::ROW_COUNT_COLUMN_NAME => 'post_count' ]);
 
-        $select = new Select();
-        $select
-          ->from('item_counts')
-          ->columns(['c'=>'post_count']);
-
-        $statement = $this->sql->prepareStatementForSqlObject($select);
-        $result    = $statement->execute();
-        $row       = $result->current();
-        $this->rowCount = $row['c'];
-
-        return $this->rowCount;
-    }
-}
-
-$adapter = new MyDbSelect($query, $adapter);
+$adapter = new DbSelect($query, $dbAdapter, null, $countQuery);
 $paginator = new Paginator($adapter);
+```
+
+Alternatively, the same can be achieved using the provided factory:
+
+```php
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Factory as PaginatorFactory;
+
+$countQuery = new Select();
+$countQuery
+    ->from('item_counts')
+    ->columns([ DbSelect::ROW_COUNT_COLUMN_NAME => 'post_count' ]);
+
+$paginator = PaginatorFactory::factory(
+    [
+        $query,
+        $dbAdapter,
+        null,
+        $countQuery,
+    ],
+    DbSelect::class
+);
 ```
 
 This approach will probably not give you a huge performance gain on small
