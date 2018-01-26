@@ -119,17 +119,25 @@ class AdapterPluginManagerTest extends TestCase
         $mockResult    = $this->createMock(DbDriver\ResultInterface::class);
         $mockStatement = $this->createMock(DbDriver\StatementInterface::class);
 
-        $mockStatement->expects($this->any())->method('execute')->will($this->returnValue($mockResult));
+        $mockStatement
+            ->expects($this->any())
+            ->method('execute')
+            ->will($this->returnValue($mockResult));
 
         $mockSql = $this->getMockBuilder(Sql::class)
             ->setMethods(['prepareStatementForSqlObject'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $mockSql->expects($this->any())->method('prepareStatementForSqlObject')
-            ->with($mockSelectCount)->will($this->returnValue($mockStatement));
+        $mockSql
+            ->expects($this->any())
+            ->method('prepareStatementForSqlObject')
+            ->with($mockSelectCount)
+            ->will($this->returnValue($mockStatement));
 
-        $mockResult->expects($this->any())->method('current')
+        $mockResult
+            ->expects($this->any())
+            ->method('current')
             ->will($this->returnValue([Adapter\DbSelect::ROW_COUNT_COLUMN_NAME => 5]));
 
         $plugin = $this->adapterPluginManager->get(
