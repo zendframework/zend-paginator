@@ -103,17 +103,12 @@ doing so is stillmany times faster than fetching an entire result set and using
 The database adapter will try and build the most efficient query that will
 execute on pretty much any modern database. However, depending on your database
 or even your own schema setup, there might be more efficient ways to get a
-rowcount. For this scenario, you can extend the provided `DbSelect` adapter and
-implement a custom `count()` method.
+rowcount.
 
-For example, if you keep track of the count of blog posts in a separate table,
-you could achieve a faster count query with the following setup:
+There are two approaches for doing this. The first is to extend the `DbSelect`
+adapter and override the `count()` method:
 
 ```php
-use Zend\Db\Sql\Select;
-use Zend\Paginator\Adapter\DbSelect;
-use Zend\Paginator\Paginator;
-
 class MyDbSelect extends DbSelect
 {
     public function count()
@@ -137,7 +132,49 @@ class MyDbSelect extends DbSelect
 }
 
 $adapter = new MyDbSelect($query, $adapter);
+```
+
+Alternately, you can pass an additional `Zend\Db\Sql\Select` object as the
+fourth constructor argument to the `DbSelect` adapter to implement a custom
+count query.
+
+For example, if you keep track of the count of blog posts in a separate table,
+you could achieve a faster count query with the following setup:
+
+```php
+use Zend\Db\Sql\Select;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
+
+$countQuery = new Select();
+$countQuery
+    ->from('item_counts')
+    ->columns([ DbSelect::ROW_COUNT_COLUMN_NAME => 'post_count' ]);
+
+$adapter = new DbSelect($query, $dbAdapter, null, $countQuery);
 $paginator = new Paginator($adapter);
+```
+
+Alternatively, the same can be achieved using the provided factory:
+
+```php
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Factory as PaginatorFactory;
+
+$countQuery = new Select();
+$countQuery
+    ->from('item_counts')
+    ->columns([ DbSelect::ROW_COUNT_COLUMN_NAME => 'post_count' ]);
+
+$paginator = PaginatorFactory::factory(
+    [
+        $query,
+        $dbAdapter,
+        null,
+        $countQuery,
+    ],
+    DbSelect::class
+);
 ```
 
 This approach will probably not give you a huge performance gain on small

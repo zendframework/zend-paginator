@@ -41,7 +41,8 @@ class DbSelectFactory implements FactoryInterface
         return new $requestedName(
             $options[0],
             $options[1],
-            isset($options[2]) ? $options[2] : null
+            isset($options[2]) ? $options[2] : null,
+            isset($options[3]) ? $options[3] : null
         );
     }
 
