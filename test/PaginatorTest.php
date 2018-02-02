@@ -9,7 +9,6 @@
 
 namespace ZendTest\Paginator;
 
-use ArrayIterator;
 use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
@@ -946,8 +945,8 @@ class PaginatorTest extends TestCase
     }
 
     /**
-     * This piece if code test the failure in determine different cache_id for different queries when using the
-     * generic TestAdapter. All the results will hit the same cache_id when simulating DbSelectAdapterObject.
+     * This piece of code tests the failure in determine different cache_id for different queries when using the
+     * generic TestAdapter. All the results will hit the same cache_id when simulating DbSelectAdapter object.
      */
     public function testDbSelectAdapterLikeFailure()
     {
@@ -992,7 +991,8 @@ class PaginatorTest extends TestCase
     }
 
     /**
-     * This piece if code test the success in determine different cache_id for different queries.
+     * This piece of code tests the success in determine different cache_id
+     * for different queries when using DbSelectAdapter object.
      */
     public function testDbSelectAdapterLikeSuccess()
     {
@@ -1000,11 +1000,14 @@ class PaginatorTest extends TestCase
         $select->where('id = 1');
         $select->where('nick = \'test\'');
         $paginator = new Paginator\Paginator(
-            new TestAsset\TestDbSelectAdapterCount10($select,
+            new TestAsset\TestDbSelectAdapter(
+                $select,
                 new DbAdapter\Adapter(
                     new DbAdapter\Driver\Pdo\Pdo(
-                        new DbAdapter\Driver\Pdo\Connection([
-                        ]))))
+                        new DbAdapter\Driver\Pdo\Connection([])
+                    )
+                )
+            )
         );
 
         $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
@@ -1017,17 +1020,21 @@ class PaginatorTest extends TestCase
         $select->where('id = 2');
         $select->where('nick = \'test\'');
         $paginator = new Paginator\Paginator(
-            new TestAsset\TestDbSelectAdapterCount5($select,
+            new TestAsset\TestDbSelectAdapter(
+                $select,
                 new DbAdapter\Adapter(
                     new DbAdapter\Driver\Pdo\Pdo(
-                        new DbAdapter\Driver\Pdo\Connection())))
+                        new DbAdapter\Driver\Pdo\Connection([])
+                    )
+                )
+            )
         );
         $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
         $reflectionGetCacheInternalId->setAccessible(true);
         $secondOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
 
         $this->assertInstanceOf('ArrayObject', $paginator->getCurrentItems());
-        $this->assertCount(5, $paginator->getCurrentItems());
+        $this->assertCount(10, $paginator->getCurrentItems());
 
         $this->assertNotEquals($firstOutputGetCacheInternalId, $secondOutputGetCacheInternalId);
     }

@@ -9,7 +9,7 @@
 
 namespace ZendTest\Paginator\TestAsset;
 
-class TestDbSelectAdapterCount10 extends \Zend\Paginator\Adapter\DbSelect
+class TestDbSelectAdapter extends \Zend\Paginator\Adapter\DbSelect
 {
     public function count()
     {
