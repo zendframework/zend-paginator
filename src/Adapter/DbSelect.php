@@ -151,4 +151,12 @@ class DbSelect implements AdapterInterface
 
         return $countSelect;
     }
+
+    /**
+     * @return string
+     */
+    public function getCacheInternalId()
+    {
+        return hash('sha512', $this->select->getSqlString());
+    }
 }

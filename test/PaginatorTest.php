@@ -946,6 +946,93 @@ class PaginatorTest extends TestCase
     }
 
     /**
+     * This piece if code test the failure in determine different cache_id for different queries when using the
+     * generic TestAdapter. All the results will hit the same cache_id when simulating DbSelectAdapterObject.
+     */
+    public function testDbSelectAdapterLikeFailure()
+    {
+        $paginator = new Paginator\Paginator(
+            new TestAsset\TestAdapter(function () {
+                // Simulate some "real" params
+                return [
+                    'driver' => [
+                        'name' => 'mysql',
+                        'uptime' => new \DateTime('Y-m-d H:i:s'),
+                    ],
+                    'sql' => 'Select * FROM table1 where ID = 1'
+                ];
+            })
+        );
+
+        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
+        $reflectionGetCacheInternalId->setAccessible(true);
+        $firstOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
+
+        sleep(1);
+
+        $paginator = new Paginator\Paginator(
+            new TestAsset\TestAdapter(function () {
+                return [
+                    // Simulate some "real" params
+                    'driver' => [
+                        'name' => 'mysql',
+                        'uptime' => new \DateTime('Y-m-d H:i:s'),
+                    ],
+                    'sql' => 'Select * FROM table2 where ID = 2'
+                ];
+            })
+        );
+        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
+        $reflectionGetCacheInternalId->setAccessible(true);
+        $secondOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
+
+        $this->assertEquals($firstOutputGetCacheInternalId, $secondOutputGetCacheInternalId);
+
+        $this->assertInstanceOf('ArrayObject', $paginator->getCurrentItems());
+    }
+
+    /**
+     * This piece if code test the success in determine different cache_id for different queries.
+     */
+    public function testDbSelectAdapterLikeSuccess()
+    {
+        $select = new Sql\Select('table1');
+        $select->where('id = 1');
+        $select->where('nick = \'test\'');
+        $paginator = new Paginator\Paginator(
+            new TestAsset\TestDbSelectAdapterCount10($select,
+                new DbAdapter\Adapter(
+                    new DbAdapter\Driver\Pdo\Pdo(
+                        new DbAdapter\Driver\Pdo\Connection([
+                        ]))))
+        );
+
+        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
+        $reflectionGetCacheInternalId->setAccessible(true);
+        $firstOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
+        $this->assertCount(10, $paginator->getCurrentItems());
+        $this->assertInstanceOf('ArrayObject', $paginator->getCurrentItems());
+
+        $select = new Sql\Select('table2');
+        $select->where('id = 2');
+        $select->where('nick = \'test\'');
+        $paginator = new Paginator\Paginator(
+            new TestAsset\TestDbSelectAdapterCount5($select,
+                new DbAdapter\Adapter(
+                    new DbAdapter\Driver\Pdo\Pdo(
+                        new DbAdapter\Driver\Pdo\Connection())))
+        );
+        $reflectionGetCacheInternalId = new ReflectionMethod($paginator, '_getCacheInternalId');
+        $reflectionGetCacheInternalId->setAccessible(true);
+        $secondOutputGetCacheInternalId = $reflectionGetCacheInternalId->invoke($paginator);
+
+        $this->assertInstanceOf('ArrayObject', $paginator->getCurrentItems());
+        $this->assertCount(5, $paginator->getCurrentItems());
+
+        $this->assertNotEquals($firstOutputGetCacheInternalId, $secondOutputGetCacheInternalId);
+    }
+
+    /**
      * @group 6808
      * @group 6809
      */

@@ -62,4 +62,14 @@ class Callback implements AdapterInterface
     {
         return call_user_func($this->countCallback);
     }
+
+    /**
+     *  Returns the internal cache id
+     *
+     * @return string
+     */
+    public function getCacheInternalId()
+    {
+        return json_encode($this);
+    }
 }
