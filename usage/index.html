@@ -12,6 +12,7 @@
     <title>Usage - zend-paginator</title>
 
     <link rel="stylesheet" href="../css/styles-18b942728f.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 </head>
 <body id="page-top">
 
@@ -66,7 +67,7 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="..">zend-paginator</a>
+            <a href="">zend-paginator</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -75,13 +76,13 @@
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../intro/" class="subnavigation__link">Intro</a>
+                        <a href="intro/" class="subnavigation__link">Intro</a>
                     </li>
                 
             
                 
                     <li class="subnavigation__list-item subnavigation__list-item--active">
-                        <a href="./" class="subnavigation__link">Usage</a>
+                        <a href="usage/" class="subnavigation__link">Usage</a>
                     </li>
                 
             
@@ -92,13 +93,13 @@
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../configuration/" class="subnavigation__link">Configuration</a>
+        <a href="configuration/" class="subnavigation__link">Configuration</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../advanced/" class="subnavigation__link">Advanced</a>
+        <a href="advanced/" class="subnavigation__link">Advanced</a>
     </li>
 
                             
@@ -182,7 +183,7 @@
         <li><a href="https://docs.zendframework.com/">Documentation</a></li>
 
         
-            <li><a href="..">zend-paginator</a></li>
+            <li><a href="">zend-paginator</a></li>
 
             
 
@@ -509,20 +510,20 @@ See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
 --&gt;
 
 &lt;?php if ($this-&gt;pageCount): ?&gt;
-&lt;div class=&quot;paginationControl&quot;&gt;
+&lt;div class="paginationControl"&gt;
 &lt;!-- Previous page link --&gt;
 &lt;?php if (isset($this-&gt;previous)): ?&gt;
-  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;&quot;&gt;
+  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;"&gt;
     &amp;lt; Previous
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class=&quot;disabled&quot;&gt;&amp;lt; Previous&lt;/span&gt; |
+  &lt;span class="disabled"&gt;&amp;lt; Previous&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Numbered page links --&gt;
 &lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
   &lt;?php if ($page != $this-&gt;current): ?&gt;
-    &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]); ?&gt;&quot;&gt;
+    &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]); ?&gt;"&gt;
         &lt;?= $page; ?&gt;
     &lt;/a&gt; |
   &lt;?php else: ?&gt;
@@ -532,11 +533,11 @@ See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
 
 &lt;!-- Next page link --&gt;
 &lt;?php if (isset($this-&gt;next)): ?&gt;
-  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;&quot;&gt;
+  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;"&gt;
     Next &amp;gt;
   &lt;/a&gt;
 &lt;?php else: ?&gt;
-  &lt;span class=&quot;disabled&quot;&gt;Next &amp;gt;&lt;/span&gt;
+  &lt;span class="disabled"&gt;Next &amp;gt;&lt;/span&gt;
 &lt;?php endif; ?&gt;
 &lt;/div&gt;
 &lt;?php endif; ?&gt;</code></pre>
@@ -547,44 +548,44 @@ See http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination
 --&gt;
 
 &lt;?php if ($this-&gt;pageCount): ?&gt;
-&lt;div class=&quot;paginationControl&quot;&gt;
+&lt;div class="paginationControl"&gt;
 &lt;?= $this-&gt;firstItemNumber; ?&gt; - &lt;?= $this-&gt;lastItemNumber; ?&gt;
 of &lt;?= $this-&gt;totalItemCount; ?&gt;
 
 &lt;!-- First page link --&gt;
 &lt;?php if (isset($this-&gt;previous)): ?&gt;
-  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;first]); ?&gt;&quot;&gt;
+  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;first]); ?&gt;"&gt;
     First
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class=&quot;disabled&quot;&gt;First&lt;/span&gt; |
+  &lt;span class="disabled"&gt;First&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Previous page link --&gt;
 &lt;?php if (isset($this-&gt;previous)): ?&gt;
-  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;&quot;&gt;
+  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;"&gt;
     &amp;lt; Previous
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class=&quot;disabled&quot;&gt;&amp;lt; Previous&lt;/span&gt; |
+  &lt;span class="disabled"&gt;&amp;lt; Previous&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Next page link --&gt;
 &lt;?php if (isset($this-&gt;next)): ?&gt;
-  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;&quot;&gt;
+  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;"&gt;
     Next &amp;gt;
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class=&quot;disabled&quot;&gt;Next &amp;gt;&lt;/span&gt; |
+  &lt;span class="disabled"&gt;Next &amp;gt;&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Last page link --&gt;
 &lt;?php if (isset($this-&gt;next)): ?&gt;
-  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;last]); ?&gt;&quot;&gt;
+  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;last]); ?&gt;"&gt;
     Last
   &lt;/a&gt;
 &lt;?php else: ?&gt;
-  &lt;span class=&quot;disabled&quot;&gt;Last&lt;/span&gt;
+  &lt;span class="disabled"&gt;Last&lt;/span&gt;
 &lt;?php endif; ?&gt;
 
 &lt;/div&gt;
@@ -592,20 +593,20 @@ of &lt;?= $this-&gt;totalItemCount; ?&gt;
 
 <p>Dropdown pagination:</p>
 <pre class="codehilite"><code class="language-php">&lt;?php if ($this-&gt;pageCount): ?&gt;
-&lt;select id=&quot;paginationControl&quot; size=&quot;1&quot;&gt;
+&lt;select id="paginationControl" size="1"&gt;
 &lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
-  &lt;?php $selected = ($page == $this-&gt;current) ? ' selected=&quot;selected&quot;' : ''; ?&gt;
-  &lt;option value=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]);?&gt;&quot;&lt;?= $selected ?&gt;&gt;
+  &lt;?php $selected = ($page == $this-&gt;current) ? ' selected="selected"' : ''; ?&gt;
+  &lt;option value="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]);?&gt;"&lt;?= $selected ?&gt;&gt;
     &lt;?= $page; ?&gt;
   &lt;/option&gt;
 &lt;?php endforeach; ?&gt;
 &lt;/select&gt;
 &lt;?php endif; ?&gt;
 
-&lt;script type=&quot;text/javascript&quot;
-     src=&quot;http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js&quot;&gt;
+&lt;script type="text/javascript"
+     src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"&gt;
 &lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
+&lt;script type="text/javascript"&gt;
 $('paginationControl').observe('change', function() {
     window.location = this.options[this.selectedIndex].value;
 })
@@ -703,7 +704,7 @@ $('paginationControl').observe('change', function() {
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../intro/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="intro/">
                     <i class="fa fa-chevron-left"></i> Previous
                 </a>
             
@@ -712,7 +713,7 @@ $('paginationControl').observe('change', function() {
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../configuration/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="configuration/">
                     Next <i class="fa fa-chevron-right"></i>
                 </a>
             
@@ -747,7 +748,7 @@ $('paginationControl').observe('change', function() {
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="..">zend-paginator</a>
+            <a href="">zend-paginator</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -756,13 +757,13 @@ $('paginationControl').observe('change', function() {
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../intro/" class="subnavigation__link">Intro</a>
+                        <a href="intro/" class="subnavigation__link">Intro</a>
                     </li>
                 
             
                 
                     <li class="subnavigation__list-item subnavigation__list-item--active">
-                        <a href="./" class="subnavigation__link">Usage</a>
+                        <a href="usage/" class="subnavigation__link">Usage</a>
                     </li>
                 
             
@@ -773,13 +774,13 @@ $('paginationControl').observe('change', function() {
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../configuration/" class="subnavigation__link">Configuration</a>
+        <a href="configuration/" class="subnavigation__link">Configuration</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../advanced/" class="subnavigation__link">Advanced</a>
+        <a href="advanced/" class="subnavigation__link">Advanced</a>
     </li>
 
                             
@@ -861,9 +862,8 @@ $('paginationControl').observe('change', function() {
         var base_url = '..',
             siteName = 'zend-paginator';
     </script>
-    <script src="../js/"></script>
-        <script src="../search/require.js"></script>
-        <script src="../search/search.js"></script>
+    <script src="../js/scripts-edc4cfa790.js"></script>
+        <script src="../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
@@ -892,6 +892,14 @@ $('paginationControl').observe('change', function() {
             </div>
         </div>
     </div>
+
+<script>
+// Anchors
+anchors.options.placement = 'left';
+anchors.add(
+    '.content h1:not(.content__title), .content h2, .content > h3, .content h4, .content h5'
+);
+</script>
 
 
 
