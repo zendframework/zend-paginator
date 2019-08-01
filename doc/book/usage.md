@@ -83,6 +83,15 @@ return $vm;
 
 ## The DbSelect adapter
 
+> ### Installation Requirements
+>
+> The DbSelect adapter depends on the zend-db component, so be sure to have it
+> installed before getting started:
+>
+> ```bash
+> $ composer require zendframework/zend-db
+> ```
+
 Most adapters receive their datasets directly. However, the `DbSelect` adapter
 requires a more detailed explanation regarding the retrieval and count of the
 data from the database.
@@ -206,6 +215,15 @@ Now when we iterate over `$paginator` we will get instances of our custom entity
 instead of associative arrays.
 
 ## Rendering pages with view scripts
+
+> ### Installation Requirements
+>
+> The rendering with view scripts depends on the zend-view component, so be sure
+> to have it installed before getting started:
+>
+> ```bash
+> $ composer require zendframework/zend-view
+> ```
 
 The view script is used to render the page items (if you're using
 zend-paginator to do so) and display the pagination control.
