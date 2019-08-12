@@ -373,7 +373,7 @@ class Paginator implements Countable, IteratorAggregate
             $cacheIterator = static::$cache->getIterator();
             $cacheIterator->setMode(CacheIterator::CURRENT_AS_KEY);
             foreach ($cacheIterator as $key) {
-                if (substr($key, 0, $prefixLength) == self::CACHE_TAG_PREFIX) {
+                if (0 === strpos($key, self::CACHE_TAG_PREFIX)) {
                     static::$cache->removeItem($this->_getCacheId((int)substr($key, $prefixLength)));
                 }
             }
@@ -707,7 +707,7 @@ class Paginator implements Countable, IteratorAggregate
             $cacheIterator = static::$cache->getIterator();
             $cacheIterator->setMode(CacheIterator::CURRENT_AS_VALUE);
             foreach ($cacheIterator as $key => $value) {
-                if (substr($key, 0, $prefixLength) == self::CACHE_TAG_PREFIX) {
+                if (0 === strpos($key, self::CACHE_TAG_PREFIX)) {
                     $data[(int) substr($key, $prefixLength)] = $value;
                 }
             }
