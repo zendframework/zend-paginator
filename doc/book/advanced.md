@@ -72,6 +72,15 @@ $manager->setFactory(ScrollingStyle::class, InvokableFactory::class);
 
 ## Caching features
 
+> ### Installation Requirements
+>
+> The caching features depends on the zend-cache component, so be sure to have
+> it installed before getting started:
+>
+> ```bash
+> $ composer require zendframework/zend-cache
+> ```
+
 `Zend\Paginator\Paginator` can be told to cache the data it has already used,
 preventing the adapter from fetching on next request. To tell
 paginator to automatically cache the adapter's data, pass a pre-configured
