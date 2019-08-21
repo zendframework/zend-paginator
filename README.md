@@ -6,5 +6,20 @@
 zend-paginator is a flexible component for paginating collections of data and
 presenting that data to users.
 
-- File issues at https://github.com/zendframework/zend-paginator/issues
-- Documentation is at https://docs.zendframework.com/zend-paginator
+## Installation
+
+Run the following to install this library:
+
+```bash
+$ composer require zendframework/zend-paginator
+```
+
+## Documentation
+
+Browse the documentation online at https://docs.zendframework.com/zend-paginator/
+
+## Support
+
+* [Issues](https://github.com/zendframework/zend-paginator/issues/)
+* [Chat](https://zendframework-slack.herokuapp.com/)
+* [Forum](https://discourse.zendframework.com/)
