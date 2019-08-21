@@ -337,6 +337,13 @@ $vm-&gt;setVariable('paginator', $paginator);
 return $vm;</code></pre>
 
 <h2 id="the-dbselect-adapter">The DbSelect adapter</h2>
+<blockquote>
+<h3 id="installation-requirements">Installation Requirements</h3>
+<p>The DbSelect adapter depends on the zend-db component, so be sure to have it
+installed before getting started:</p>
+<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-db</code></pre>
+
+</blockquote>
 <p>Most adapters receive their datasets directly. However, the <code>DbSelect</code> adapter
 requires a more detailed explanation regarding the retrieval and count of the
 data from the database.</p>
@@ -441,6 +448,13 @@ $paginator = new Zend\Paginator\Paginator($adapter);</code></pre>
 <p>Now when we iterate over <code>$paginator</code> we will get instances of our custom entity
 instead of associative arrays.</p>
 <h2 id="rendering-pages-with-view-scripts">Rendering pages with view scripts</h2>
+<blockquote>
+<h3 id="installation-requirements_1">Installation Requirements</h3>
+<p>The rendering with view scripts depends on the zend-view component, so be sure
+to have it installed before getting started:</p>
+<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-view</code></pre>
+
+</blockquote>
 <p>The view script is used to render the page items (if you're using
 zend-paginator to do so) and display the pagination control.</p>
 <p>Because <code>Zend\Paginator\Paginator</code> implements the SPL interface
