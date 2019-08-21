@@ -84,7 +84,7 @@ $manager->setFactory(ScrollingStyle::class, InvokableFactory::class);
 `Zend\Paginator\Paginator` can be told to cache the data it has already used,
 preventing the adapter from fetching on next request. To tell
 paginator to automatically cache the adapter's data, pass a pre-configured
-[zend-cache adapter](https://zendframework.github.io/zend-cache/storage/adapter/)
+[zend-cache adapter](https://docs.zendframework.com/zend-cache/storage/adapter/)
 to the static `setCache()` method:
 
 ```php

@@ -60,7 +60,7 @@ return [
 ];
 ```
 
-With the above route (and using [zend-mvc](https://zendframework.github.io/zend-mvc/)
+With the above route (and using [zend-mvc](https://docs.zendframework.com/zend-mvc/)
 controllers), you might set the current page number in your controller action
 like so:
 
@@ -192,7 +192,7 @@ large collections, a similar approach could give you a significant performance
 boost.
 
 The `DbSelect` adapter also supports returning of fetched records using the
-[ResultSet subcomponent of zend-db](http://zendframework.github.io/zend-db/result-set/).
+[ResultSet subcomponent of zend-db](http://docs.zendframework.com/zend-db/result-set/).
 You can override the concrete `ResultSet` implementation by passing an object
 implementing `Zend\Db\ResultSet\ResultSetInterface` as the third constructor
 argument to the `DbSelect` adapter:
@@ -271,7 +271,7 @@ happen:
 - The current page number could stay in the middle as you click through (as it
   does on Yahoo!)
 - It could advance to the end of the page range and then appear again on the
-  left when the user clicks "next" one more time. 
+  left when the user clicks "next" one more time.
 - The page numbers might even expand and contract as the user advances (or
   "scrolls") through them (as they do on Google).
 
