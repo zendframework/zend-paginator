@@ -322,7 +322,7 @@ route configuration:</p>
     ],
 ];</code></pre>
 
-<p>With the above route (and using <a href="https://zendframework.github.io/zend-mvc/">zend-mvc</a>
+<p>With the above route (and using <a href="https://docs.zendframework.com/zend-mvc/">zend-mvc</a>
 controllers), you might set the current page number in your controller action
 like so:</p>
 <pre class="codehilite"><code class="language-php">$paginator-&gt;setCurrentPageNumber($this-&gt;params()-&gt;fromRoute('page'));</code></pre>
@@ -429,7 +429,7 @@ collections and/or simple select queries. However, with complex queries and
 large collections, a similar approach could give you a significant performance
 boost.</p>
 <p>The <code>DbSelect</code> adapter also supports returning of fetched records using the
-<a href="http://zendframework.github.io/zend-db/result-set/">ResultSet subcomponent of zend-db</a>.
+<a href="http://docs.zendframework.com/zend-db/result-set/">ResultSet subcomponent of zend-db</a>.
 You can override the concrete <code>ResultSet</code> implementation by passing an object
 implementing <code>Zend\Db\ResultSet\ResultSetInterface</code> as the third constructor
 argument to the <code>DbSelect</code> adapter:</p>
@@ -494,7 +494,7 @@ happen:</p>
 <li>The current page number could stay in the middle as you click through (as it
   does on Yahoo!)</li>
 <li>It could advance to the end of the page range and then appear again on the
-  left when the user clicks "next" one more time. </li>
+  left when the user clicks "next" one more time.</li>
 <li>The page numbers might even expand and contract as the user advances (or
   "scrolls") through them (as they do on Google).</li>
 </ul>
@@ -777,7 +777,7 @@ $('paginationControl').observe('change', function() {
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-paginator/edit/master/doc/usage.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-paginator/edit/master/docs/usage.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>
