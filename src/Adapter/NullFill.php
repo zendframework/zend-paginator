@@ -37,11 +37,12 @@ class NullFill implements AdapterInterface
      */
     public function getItems($offset, $itemCountPerPage)
     {
-        if ($offset >= $this->count()) {
+        $count = $this->count();
+        if ($offset >= $count) {
             return [];
         }
 
-        $remainItemCount  = $this->count() - $offset;
+        $remainItemCount  = $count - $offset;
         $currentItemCount = $remainItemCount > $itemCountPerPage ? $itemCountPerPage : $remainItemCount;
 
         return array_fill(0, $currentItemCount, null);
