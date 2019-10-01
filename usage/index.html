@@ -286,29 +286,27 @@ data source adapters. Several adapters ship with zend-paginator by default:</p>
 </tbody>
 </table></div>
 <blockquote>
-<h3 id="database-optimizations">Database optimizations</h3>
+<h3>Database optimizations</h3>
 <p>Instead of selecting every matching row of a given query, the <code>DbSelect</code> adapter
 retrieves only the smallest amount of data necessary for displaying the
 current page. Because of this, a second query is dynamically generated to
 determine the total number of matching rows.</p>
 </blockquote>
 <p>To create a paginator instance, you must supply an adapter to the constructor:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Paginator\Adapter;
+<p> <pre class=codehilite><code class=language-php>use Zend\Paginator\Adapter;
 use Zend\Paginator\Paginator;
 
-$paginator = new Paginator(new Adapter\ArrayAdapter($array));</code></pre>
-
+$paginator = new Paginator(new Adapter\ArrayAdapter($array));</code></pre></p>
 <p>In the case of the <code>NullFill</code> adapter, in lieu of a data collection you must
 supply an item count to its constructor.</p>
 <p>Although the instance is technically usable in this state, in your controller
 action you'll need to tell the paginator what page number the user requested.
 This allows advancing through the paginated data.</p>
-<pre class="codehilite"><code class="language-php">$paginator-&gt;setCurrentPageNumber($page);</code></pre>
-
+<p> <pre class=codehilite><code class=language-php>$paginator-&gt;setCurrentPageNumber($page);</code></pre></p>
 <p>The simplest way to keep track of this value is through a URL parameter. The
 following is an example <a href="https://zendframework.github.com/zend-router">zend-router</a>
 route configuration:</p>
-<pre class="codehilite"><code class="language-php">return [
+<p> <pre class=codehilite><code class=language-php>return [
     'routes' =&gt; [
         'paginator' =&gt; [
             'type' =&gt; 'segment',
@@ -320,29 +318,26 @@ route configuration:</p>
             ],
         ],
     ],
-];</code></pre>
-
+];</code></pre></p>
 <p>With the above route (and using <a href="https://docs.zendframework.com/zend-mvc/">zend-mvc</a>
 controllers), you might set the current page number in your controller action
 like so:</p>
-<pre class="codehilite"><code class="language-php">$paginator-&gt;setCurrentPageNumber($this-&gt;params()-&gt;fromRoute('page'));</code></pre>
-
+<p> <pre class=codehilite><code class=language-php>$paginator-&gt;setCurrentPageNumber($this-&gt;params()-&gt;fromRoute('page'));</code></pre></p>
 <p>There are other options available; see the <a href="../configuration/">Configuration chapter</a>
 for more on them.</p>
 <p>Finally, you'll need to assign the paginator instance to your view. If you're
 using zend-mvc and zend-view, you can assign the paginator object to your view
 model:</p>
-<pre class="codehilite"><code class="language-php">$vm = new ViewModel();
+<p> <pre class=codehilite><code class=language-php>$vm = new ViewModel();
 $vm-&gt;setVariable('paginator', $paginator);
-return $vm;</code></pre>
-
+return $vm;</code></pre></p>
 <h2 id="the-dbselect-adapter">The DbSelect adapter</h2>
 <blockquote>
-<h3 id="installation-requirements">Installation Requirements</h3>
+<h3>Installation Requirements</h3>
 <p>The DbSelect adapter depends on the zend-db component, so be sure to have it
 installed before getting started:</p>
-<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-db</code></pre>
-
+<p><code>bash
+$ composer require zendframework/zend-db</code></p>
 </blockquote>
 <p>Most adapters receive their datasets directly. However, the <code>DbSelect</code> adapter
 requires a more detailed explanation regarding the retrieval and count of the
@@ -364,7 +359,7 @@ or even your own schema setup, there might be more efficient ways to get a
 rowcount.</p>
 <p>There are two approaches for doing this. The first is to extend the <code>DbSelect</code>
 adapter and override the <code>count()</code> method:</p>
-<pre class="codehilite"><code class="language-php">class MyDbSelect extends DbSelect
+<p> <pre class=codehilite><code class=language-php>class MyDbSelect extends DbSelect
 {
     public function count()
     {
@@ -386,14 +381,13 @@ adapter and override the <code>count()</code> method:</p>
     }
 }
 
-$adapter = new MyDbSelect($query, $adapter);</code></pre>
-
+$adapter = new MyDbSelect($query, $adapter);</code></pre></p>
 <p>Alternately, you can pass an additional <code>Zend\Db\Sql\Select</code> object as the
 fourth constructor argument to the <code>DbSelect</code> adapter to implement a custom
 count query.</p>
 <p>For example, if you keep track of the count of blog posts in a separate table,
 you could achieve a faster count query with the following setup:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Db\Sql\Select;
+<p> <pre class=codehilite><code class=language-php>use Zend\Db\Sql\Select;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
@@ -403,10 +397,9 @@ $countQuery
     -&gt;columns([ DbSelect::ROW_COUNT_COLUMN_NAME =&gt; 'post_count' ]);
 
 $adapter = new DbSelect($query, $dbAdapter, null, $countQuery);
-$paginator = new Paginator($adapter);</code></pre>
-
+$paginator = new Paginator($adapter);</code></pre></p>
 <p>Alternatively, the same can be achieved using the provided factory:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Paginator\Adapter\DbSelect;
+<p> <pre class=codehilite><code class=language-php>use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Factory as PaginatorFactory;
 
 $countQuery = new Select();
@@ -422,8 +415,7 @@ $paginator = PaginatorFactory::factory(
         $countQuery,
     ],
     DbSelect::class
-);</code></pre>
-
+);</code></pre></p>
 <p>This approach will probably not give you a huge performance gain on small
 collections and/or simple select queries. However, with complex queries and
 large collections, a similar approach could give you a significant performance
@@ -433,7 +425,7 @@ boost.</p>
 You can override the concrete <code>ResultSet</code> implementation by passing an object
 implementing <code>Zend\Db\ResultSet\ResultSetInterface</code> as the third constructor
 argument to the <code>DbSelect</code> adapter:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Db\ResultSet\HydratingResultSet;
+<p> <pre class=codehilite><code class=language-php>use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
@@ -443,24 +435,23 @@ use Zend\Paginator\Paginator;
 $resultSet = new HydratingResultSet($hydrator, $objectPrototype);
 
 $adapter = new DbSelect($query, $dbAdapter, $resultSet)
-$paginator = new Zend\Paginator\Paginator($adapter);</code></pre>
-
+$paginator = new Zend\Paginator\Paginator($adapter);</code></pre></p>
 <p>Now when we iterate over <code>$paginator</code> we will get instances of our custom entity
 instead of associative arrays.</p>
 <h2 id="rendering-pages-with-view-scripts">Rendering pages with view scripts</h2>
 <blockquote>
-<h3 id="installation-requirements_1">Installation Requirements</h3>
+<h3>Installation Requirements</h3>
 <p>The rendering with view scripts depends on the zend-view component, so be sure
 to have it installed before getting started:</p>
-<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-view</code></pre>
-
+<p><code>bash
+$ composer require zendframework/zend-view</code></p>
 </blockquote>
 <p>The view script is used to render the page items (if you're using
 zend-paginator to do so) and display the pagination control.</p>
 <p>Because <code>Zend\Paginator\Paginator</code> implements the SPL interface
 <a href="http://php.net/IteratorAggregate">IteratorAggregate</a>, you can loop over an
 instance using <code>foreach</code>:</p>
-<pre class="codehilite"><code class="language-php">&lt;html&gt;
+<p> <pre class=codehilite><code class=language-php>&lt;html&gt;
 &lt;body&gt;
 &lt;h1&gt;Example&lt;/h1&gt;
 &lt;?php if (count($this-&gt;paginator)): ?&gt;
@@ -478,8 +469,7 @@ instance using <code>foreach</code>:</p>
     ['route' =&gt; 'application/paginator']
 ) ?&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-
+&lt;/html&gt;</code></pre></p>
 <p>Notice the view helper call near the end. <code>PaginationControl</code> accepts up to four
 parameters: the paginator instance, a scrolling style, a view script name, and
 an array of additional parameters.</p>
@@ -530,49 +520,47 @@ variables that you want available in your view (available via <code>$this</code>
 instance, these values could include extra URL parameters for pagination links.</p>
 <p>By setting the default view script name, default scrolling style, and view
 instance, you can eliminate the calls to <code>PaginationControl</code> completely:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Paginator\Paginator;
+<p> <pre class=codehilite><code class=language-php>use Zend\Paginator\Paginator;
 use Zend\View\Helper\PaginationControl;
 
 Paginator::setDefaultScrollingStyle('Sliding');
-PaginationControl::setDefaultViewPartial('my_pagination_control');</code></pre>
-
+PaginationControl::setDefaultViewPartial('my_pagination_control');</code></pre></p>
 <p>When all of these values are set, you can render the pagination control inside
 your view script by echoing the paginator instance:</p>
-<pre class="codehilite"><code class="language-php">&lt;?= $this-&gt;paginator ?&gt;</code></pre>
-
+<p> <pre class=codehilite><code class=language-php>&lt;?= $this-&gt;paginator ?&gt;</code></pre></p>
 <blockquote>
-<h3 id="using-other-template-engines">Using other template engines</h3>
+<h3>Using other template engines</h3>
 <p>Of course, it's possible to use zend-paginator with other template engines.
 For example, with Smarty you might do the following:</p>
-<pre class="codehilite"><code class="language-php">$smarty-assign('pages', $paginator-&gt;getPages());</code></pre>
-
+<p><code>php
+$smarty-assign('pages', $paginator-&gt;getPages());</code></p>
 <p>You could then access paginator values from a template like so:</p>
-<pre class="codehilite"><code class="language-php">{$pages.pageCount}</code></pre>
-
+<p><code>php
+{$pages.pageCount}</code></p>
 </blockquote>
-<h3 id="example-pagination-controls">Example pagination controls</h3>
+<h3>Example pagination controls</h3>
 <p>The following example pagination controls will help you get started with
 zend-view:</p>
 <p>Search pagination:</p>
-<pre class="codehilite"><code class="language-php">&lt;!--
+<p> <pre class=codehilite><code class=language-php>&lt;!--
 See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
 --&gt;
 
 &lt;?php if ($this-&gt;pageCount): ?&gt;
-&lt;div class="paginationControl"&gt;
+&lt;div class=&quot;paginationControl&quot;&gt;
 &lt;!-- Previous page link --&gt;
 &lt;?php if (isset($this-&gt;previous)): ?&gt;
-  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;"&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;&quot;&gt;
     &amp;lt; Previous
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class="disabled"&gt;&amp;lt; Previous&lt;/span&gt; |
+  &lt;span class=&quot;disabled&quot;&gt;&amp;lt; Previous&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Numbered page links --&gt;
 &lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
   &lt;?php if ($page != $this-&gt;current): ?&gt;
-    &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]); ?&gt;"&gt;
+    &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]); ?&gt;&quot;&gt;
         &lt;?= $page; ?&gt;
     &lt;/a&gt; |
   &lt;?php else: ?&gt;
@@ -582,86 +570,83 @@ See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
 
 &lt;!-- Next page link --&gt;
 &lt;?php if (isset($this-&gt;next)): ?&gt;
-  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;"&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;&quot;&gt;
     Next &amp;gt;
   &lt;/a&gt;
 &lt;?php else: ?&gt;
-  &lt;span class="disabled"&gt;Next &amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;disabled&quot;&gt;Next &amp;gt;&lt;/span&gt;
 &lt;?php endif; ?&gt;
 &lt;/div&gt;
-&lt;?php endif; ?&gt;</code></pre>
-
+&lt;?php endif; ?&gt;</code></pre></p>
 <p>Item pagination:</p>
-<pre class="codehilite"><code class="language-php">&lt;!--
+<p> <pre class=codehilite><code class=language-php>&lt;!--
 See http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination
 --&gt;
 
 &lt;?php if ($this-&gt;pageCount): ?&gt;
-&lt;div class="paginationControl"&gt;
+&lt;div class=&quot;paginationControl&quot;&gt;
 &lt;?= $this-&gt;firstItemNumber; ?&gt; - &lt;?= $this-&gt;lastItemNumber; ?&gt;
 of &lt;?= $this-&gt;totalItemCount; ?&gt;
 
 &lt;!-- First page link --&gt;
 &lt;?php if (isset($this-&gt;previous)): ?&gt;
-  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;first]); ?&gt;"&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;first]); ?&gt;&quot;&gt;
     First
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class="disabled"&gt;First&lt;/span&gt; |
+  &lt;span class=&quot;disabled&quot;&gt;First&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Previous page link --&gt;
 &lt;?php if (isset($this-&gt;previous)): ?&gt;
-  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;"&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;previous]); ?&gt;&quot;&gt;
     &amp;lt; Previous
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class="disabled"&gt;&amp;lt; Previous&lt;/span&gt; |
+  &lt;span class=&quot;disabled&quot;&gt;&amp;lt; Previous&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Next page link --&gt;
 &lt;?php if (isset($this-&gt;next)): ?&gt;
-  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;"&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;next]); ?&gt;&quot;&gt;
     Next &amp;gt;
   &lt;/a&gt; |
 &lt;?php else: ?&gt;
-  &lt;span class="disabled"&gt;Next &amp;gt;&lt;/span&gt; |
+  &lt;span class=&quot;disabled&quot;&gt;Next &amp;gt;&lt;/span&gt; |
 &lt;?php endif; ?&gt;
 
 &lt;!-- Last page link --&gt;
 &lt;?php if (isset($this-&gt;next)): ?&gt;
-  &lt;a href="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;last]); ?&gt;"&gt;
+  &lt;a href=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $this-&gt;last]); ?&gt;&quot;&gt;
     Last
   &lt;/a&gt;
 &lt;?php else: ?&gt;
-  &lt;span class="disabled"&gt;Last&lt;/span&gt;
+  &lt;span class=&quot;disabled&quot;&gt;Last&lt;/span&gt;
 &lt;?php endif; ?&gt;
 
 &lt;/div&gt;
-&lt;?php endif; ?&gt;</code></pre>
-
+&lt;?php endif; ?&gt;</code></pre></p>
 <p>Dropdown pagination:</p>
-<pre class="codehilite"><code class="language-php">&lt;?php if ($this-&gt;pageCount): ?&gt;
-&lt;select id="paginationControl" size="1"&gt;
+<p> <pre class=codehilite><code class=language-php>&lt;?php if ($this-&gt;pageCount): ?&gt;
+&lt;select id=&quot;paginationControl&quot; size=&quot;1&quot;&gt;
 &lt;?php foreach ($this-&gt;pagesInRange as $page): ?&gt;
-  &lt;?php $selected = ($page == $this-&gt;current) ? ' selected="selected"' : ''; ?&gt;
-  &lt;option value="&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]);?&gt;"&lt;?= $selected ?&gt;&gt;
+  &lt;?php $selected = ($page == $this-&gt;current) ? ' selected=&quot;selected&quot;' : ''; ?&gt;
+  &lt;option value=&quot;&lt;?= $this-&gt;url($this-&gt;route, ['page' =&gt; $page]);?&gt;&quot;&lt;?= $selected ?&gt;&gt;
     &lt;?= $page; ?&gt;
   &lt;/option&gt;
 &lt;?php endforeach; ?&gt;
 &lt;/select&gt;
 &lt;?php endif; ?&gt;
 
-&lt;script type="text/javascript"
-     src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"&gt;
+&lt;script type=&quot;text/javascript&quot;
+     src=&quot;http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js&quot;&gt;
 &lt;/script&gt;
-&lt;script type="text/javascript"&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
 $('paginationControl').observe('change', function() {
     window.location = this.options[this.selectedIndex].value;
 })
-&lt;/script&gt;</code></pre>
-
-<h3 id="listing-of-properties">Listing of properties</h3>
+&lt;/script&gt;</code></pre></p>
+<h3>Listing of properties</h3>
 <p>The following options are available to pagination control view scripts:</p>
 <div class="table-responsive"><table>
 <thead>
@@ -777,7 +762,7 @@ $('paginationControl').observe('change', function() {
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-paginator/edit/master/docs/usage.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-paginator/edit/master/docs/book/usage.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>
