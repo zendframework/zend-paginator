@@ -336,8 +336,9 @@ return $vm;</code></pre></p>
 <h3>Installation Requirements</h3>
 <p>The DbSelect adapter depends on the zend-db component, so be sure to have it
 installed before getting started:</p>
-<p><code>bash
-$ composer require zendframework/zend-db</code></p>
+<p><pre class=codehilite><code class=language-bash>
+$ composer require zendframework/zend-db
+</code></pre></p>
 </blockquote>
 <p>Most adapters receive their datasets directly. However, the <code>DbSelect</code> adapter
 requires a more detailed explanation regarding the retrieval and count of the
@@ -443,8 +444,9 @@ instead of associative arrays.</p>
 <h3>Installation Requirements</h3>
 <p>The rendering with view scripts depends on the zend-view component, so be sure
 to have it installed before getting started:</p>
-<p><code>bash
-$ composer require zendframework/zend-view</code></p>
+<p><pre class=codehilite><code class=language-bash>
+$ composer require zendframework/zend-view
+</code></pre></p>
 </blockquote>
 <p>The view script is used to render the page items (if you're using
 zend-paginator to do so) and display the pagination control.</p>
@@ -532,11 +534,13 @@ your view script by echoing the paginator instance:</p>
 <h3>Using other template engines</h3>
 <p>Of course, it's possible to use zend-paginator with other template engines.
 For example, with Smarty you might do the following:</p>
-<p><code>php
-$smarty-assign('pages', $paginator-&gt;getPages());</code></p>
+<p><pre class=codehilite><code class=language-php>
+$smarty-assign('pages', $paginator-&gt;getPages());
+</code></pre></p>
 <p>You could then access paginator values from a template like so:</p>
-<p><code>php
-{$pages.pageCount}</code></p>
+<p><pre class=codehilite><code class=language-php>
+{$pages.pageCount}
+</code></pre></p>
 </blockquote>
 <h3>Example pagination controls</h3>
 <p>The following example pagination controls will help you get started with
