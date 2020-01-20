@@ -2,7 +2,7 @@
 
 > ## Repository abandoned 2019-12-31
 >
-> This repository has moved to laminas/laminas-paginator.
+> This repository has moved to [laminas/laminas-paginator](https://github.com/laminas/laminas-paginator).
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-paginator.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-paginator)
 [![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-paginator/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-paginator?branch=master)
