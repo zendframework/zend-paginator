@@ -57,4 +57,14 @@ class NullFill implements AdapterInterface
     {
         return $this->count;
     }
+
+    /**
+     *  Returns the internal cache id
+     *
+     * @return string
+     */
+    public function getCacheInternalId()
+    {
+        return json_encode($this);
+    }
 }

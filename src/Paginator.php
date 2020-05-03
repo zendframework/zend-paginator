@@ -865,7 +865,7 @@ class Paginator implements Countable, IteratorAggregate
         // @codingStandardsIgnoreEnd
         return md5(
             get_class($this->getAdapter())
-            . json_encode($this->getAdapter())
+            . $this->getAdapter()->getCacheInternalId()
             . $this->getItemCountPerPage()
         );
     }

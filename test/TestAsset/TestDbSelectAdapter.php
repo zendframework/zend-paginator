@@ -9,18 +9,8 @@
 
 namespace ZendTest\Paginator\TestAsset;
 
-class TestAdapter implements \Zend\Paginator\Adapter\AdapterInterface
+class TestDbSelectAdapter extends \Zend\Paginator\Adapter\DbSelect
 {
-    /**
-     * @var mixed
-     */
-    public $property;
-
-    public function __construct($property = null)
-    {
-        $this->property = $property;
-    }
-
     public function count()
     {
         return 10;
@@ -29,15 +19,5 @@ class TestAdapter implements \Zend\Paginator\Adapter\AdapterInterface
     public function getItems($pageNumber, $itemCountPerPage)
     {
         return new \ArrayObject(range(1, 10));
-    }
-
-    /**
-     *  Returns the internal cache id
-     *
-     * @return string
-     */
-    public function getCacheInternalId()
-    {
-        return json_encode($this);
     }
 }

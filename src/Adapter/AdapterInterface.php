@@ -24,4 +24,11 @@ interface AdapterInterface extends Countable
      * @return array
      */
     public function getItems($offset, $itemCountPerPage);
+
+    /**
+     *  Returns the internal cache id
+     *
+     *  @return string
+     */
+    public function getCacheInternalId();
 }
